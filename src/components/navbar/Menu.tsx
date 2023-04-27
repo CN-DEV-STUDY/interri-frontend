@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Link from '@/components/ui/Link';
+import { Link } from 'react-router-dom';
 
 /**
  * @description 메뉴 컴포넌트
