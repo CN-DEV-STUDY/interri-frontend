@@ -28,7 +28,7 @@ const Header = styled.header`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	background-color: green;
+	background-color: #474044;
 
 	padding: 10px 40px;
 `;

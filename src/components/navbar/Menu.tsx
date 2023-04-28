@@ -25,8 +25,10 @@ const Wrapper = styled.div`
 	font-size: 2.4rem;
 	font-weight: 600;
 
-	:link,
-	:visited {
+	& :link,
+	& :visited {
+		text-decoration: none;
+		color: #fff;
 	}
 
 	:hover,

@@ -16,7 +16,7 @@ interface InputProps {
 /**
  * @description Input 컴포넌트
  */
-const Input: React.FC<InputProps> = ({
+const Input = ({
 	value,
 	onChange,
 	type,
@@ -26,7 +26,7 @@ const Input: React.FC<InputProps> = ({
 	readOnly,
 	inputRef,
 	autoComplete = 'off',
-}) => {
+}: InputProps) => {
 	// view
 	return (
 		<StyledInput

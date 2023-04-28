@@ -9,7 +9,7 @@ interface ImageProps {
 /**
  * @description 이미지 컴포넌트
  */
-const Image: React.FC<ImageProps> = ({ path, width, height }) => {
+const Image = ({ path, width, height }: ImageProps) => {
 	// view
 	return <StyledImg src={path} height={height} />;
 };
