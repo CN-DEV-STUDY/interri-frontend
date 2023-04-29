@@ -9,7 +9,7 @@ const Menu = () => {
 	return (
 		<Wrapper>
 			<Link to='#'>디자인 요청</Link>
-			<Link to='#'>인테리어 트렌트</Link>
+			<Link to='#'>인테리어 트렌드</Link>
 			<Link to='#'>주간 랭킹</Link>
 		</Wrapper>
 	);

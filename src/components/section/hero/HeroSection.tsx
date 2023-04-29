@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import Image from '@/components/ui/Image';
 import SectionContainer from '@/components/common/SectionContainer';
 
+/**
+ * @description HeroSection 컴포넌트
+ */
 const HeroSection = () => {
 	return (
 		<Section color={'#474044'}>

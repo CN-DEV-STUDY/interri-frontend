@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 interface ImageProps {
 	path: string;
-	width?: number;
 	height: number;
+	width?: number;
 }
 
 /**
@@ -19,5 +19,4 @@ export default Image;
 // STYLED COMPONENTS
 const StyledImg = styled.img`
 	height: ${(props) => props.height}rem;
-	object-fit: cover;
 `;
