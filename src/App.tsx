@@ -1,4 +1,3 @@
-import GlobalStyles from './GlobalStyes';
 import MainHeader from '@/components/headers/MainHeader';
 import HeroSection from '@/components/section/hero/HeroSection';
 import MainFooter from '@/components/footers/MainFooter';
@@ -11,7 +10,6 @@ function App() {
 	// view
 	return (
 		<>
-			<GlobalStyles />
 			<MainHeader />
 			<main>
 				<HeroSection />

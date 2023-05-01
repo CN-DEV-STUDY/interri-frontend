@@ -12,7 +12,7 @@ interface DesignCardInfoProps {
 const DesignCardInfo = ({ userId, viewCount }: DesignCardInfoProps) => {
 	// view
 	return (
-		<Grid column number={2}>
+		<Grid column repeat={2}>
 			<UserId>{userId}</UserId>
 			<ViewCount>조회수: {viewCount}</ViewCount>
 			<div>좋아요 / 채택 금액</div>

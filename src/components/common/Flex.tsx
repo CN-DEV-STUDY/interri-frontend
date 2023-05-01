@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 
 interface FlexProps {
-	children: React.ReactNode;
 	gridColumn?: string;
+	children: React.ReactNode;
 }
 
 /**
  * @description Flex 컴포넌트
  */
 const Flex = ({ gridColumn, children }: FlexProps) => {
+	// view
 	return <StyledFlex gridColumn={gridColumn}>{children}</StyledFlex>;
 };
 

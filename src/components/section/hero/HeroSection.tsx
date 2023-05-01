@@ -1,15 +1,15 @@
-import Section from '@/components/common/Section';
 import styled from 'styled-components';
+import Section from '@/components/common/Section';
 import Image from '@/components/ui/Image';
-import SectionContainer from '@/components/common/SectionContainer';
+import Grid from '@/components/common/Grid';
 
 /**
  * @description HeroSection 컴포넌트
  */
 const HeroSection = () => {
 	return (
-		<Section color={'#474044'}>
-			<SectionContainer>
+		<Section width={'large'} color={'#474044'}>
+			<Grid repeat={2} column>
 				<HeroTextBox>
 					<StyledHeading>지금 디자인하세요</StyledHeading>
 				</HeroTextBox>
@@ -17,7 +17,7 @@ const HeroSection = () => {
 					path={process.env.PUBLIC_URL + '/images/hero-image.jpg'}
 					height={70}
 				/>
-			</SectionContainer>
+			</Grid>
 		</Section>
 	);
 };
