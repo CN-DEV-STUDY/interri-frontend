@@ -29,7 +29,6 @@ const StyledSection = styled.section`
 const SectionContainer = styled.div<SectionProps>`
 	margin: 0 auto;
 	${(props) => {
-		console.log(props.width);
 		if (props.width === 'large') {
 			return 'width: 1300px';
 		}

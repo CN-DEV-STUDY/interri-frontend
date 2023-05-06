@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
-const Select = () => {
-	return <StyledSelect></StyledSelect>;
+interface SelectProps {
+	children: React.ReactNode;
+}
+
+const Select = ({ children }: SelectProps) => {
+	return <StyledSelect>{children}</StyledSelect>;
 };
 
 export default Select;
