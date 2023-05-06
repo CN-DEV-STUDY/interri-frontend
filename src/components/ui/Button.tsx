@@ -1,24 +1,40 @@
 import styled from 'styled-components';
 
 interface ButtonProps {
-	type?: string;
+	type?: 'button' | 'submit' | 'reset';
 	bgColor?: string;
 	color?: string;
+
+	// 버튼 크기
+	sm?: boolean; // small
+
+	onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	children: React.ReactNode;
 }
 
 /**
  * @description 버튼 컴포넌트
  */
-const Button = ({ type = 'button', bgColor, color, children }: ButtonProps) => {
+const Button = ({
+	type = 'button',
+	bgColor,
+	color,
+	sm,
+	onClick,
+	children,
+}: ButtonProps) => {
 	// view
-	return <StyledButton>{children}</StyledButton>;
+	return (
+		<StyledButton type={type} sm={sm} onClick={onClick}>
+			{children}
+		</StyledButton>
+	);
 };
 
 export default Button;
 
 // STYLED COMPONENTS
-const StyledButton = styled.button`
+const StyledButton = styled.button<ButtonProps>`
 	border: none;
 	border-radius: 5px;
 	background-color: #b5b3b4;
@@ -26,5 +42,11 @@ const StyledButton = styled.button`
 	font-size: 18px;
 	font-weight: 500;
 	padding: 16px 48px;
-	flex-grow: 1;
+
+	cursor: pointer;
+	:hover {
+		background-color: #979797;
+	}
+
+	${(props) => props.sm && `padding: 10px 12px;`};
 `;

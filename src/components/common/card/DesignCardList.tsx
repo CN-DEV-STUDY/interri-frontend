@@ -9,7 +9,11 @@ interface DesignCardListProps {
  */
 const DesignCardList = ({ children }: DesignCardListProps) => {
 	// view
-	return <Flex gridColumn={'endToEnd'}>{children}</Flex>;
+	return (
+		<Flex space={'between'} gridColumn={'endToEnd'}>
+			{children}
+		</Flex>
+	);
 };
 
 export default DesignCardList;

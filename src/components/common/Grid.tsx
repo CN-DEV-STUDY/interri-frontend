@@ -4,6 +4,7 @@ interface GridProps {
 	repeat: number;
 	row?: boolean;
 	column?: boolean;
+	gap?: number;
 	gridColumn?: string;
 	children: React.ReactNode;
 }
@@ -11,11 +12,19 @@ interface GridProps {
 /**
  * @description Grid 컴포넌트
  */
-const Grid = ({ repeat, row, column, gridColumn, children }: GridProps) => {
+const Grid = ({
+	repeat,
+	row,
+	column,
+	gap,
+	gridColumn,
+	children,
+}: GridProps) => {
 	return (
 		<StyledGrid
 			repeat={repeat}
 			row={row}
+			gap={gap}
 			column={column}
 			gridColumn={gridColumn}
 		>
@@ -30,9 +39,12 @@ export default Grid;
 const StyledGrid = styled.div<GridProps>`
 	margin-top: 15px;
 	display: grid;
-	align-items: center;
+	align-content: center;
 	justify-content: space-around;
 	row-gap: 2rem;
+
+	// gap
+	${(props) => props.gap && `gap: ${props.gap}px;`}
 
 	// grid-template-columns
 	${(props) =>
