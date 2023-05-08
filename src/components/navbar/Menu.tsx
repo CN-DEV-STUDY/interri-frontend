@@ -9,7 +9,7 @@ const Menu = () => {
 	return (
 		<Wrapper>
 			<Link to='#'>디자인 요청</Link>
-			<Link to='#'>인테리어 트렌트</Link>
+			<Link to='#'>인테리어 트렌드</Link>
 			<Link to='#'>주간 랭킹</Link>
 		</Wrapper>
 	);
@@ -25,8 +25,10 @@ const Wrapper = styled.div`
 	font-size: 2.4rem;
 	font-weight: 600;
 
-	:link,
-	:visited {
+	& :link,
+	& :visited {
+		text-decoration: none;
+		color: #fff;
 	}
 
 	:hover,

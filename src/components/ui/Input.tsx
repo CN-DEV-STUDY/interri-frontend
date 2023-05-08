@@ -2,7 +2,7 @@ import { ChangeEventHandler } from 'react';
 import styled from 'styled-components';
 
 interface InputProps {
-	value: string | number | undefined;
+	value?: string | number | undefined;
 	onChange?: ChangeEventHandler;
 	type?: string;
 	name?: string;
@@ -11,12 +11,14 @@ interface InputProps {
 	readOnly?: boolean;
 	inputRef?: any;
 	autoComplete?: string;
+	multiply?: boolean;
+	display?: string;
 }
 
 /**
  * @description Input 컴포넌트
  */
-const Input: React.FC<InputProps> = ({
+const Input = ({
 	value,
 	onChange,
 	type,
@@ -26,7 +28,9 @@ const Input: React.FC<InputProps> = ({
 	readOnly,
 	inputRef,
 	autoComplete = 'off',
-}) => {
+	multiply,
+	display,
+}: InputProps) => {
 	// view
 	return (
 		<StyledInput
@@ -39,6 +43,8 @@ const Input: React.FC<InputProps> = ({
 			readOnly={readOnly}
 			ref={inputRef}
 			autoComplete={autoComplete}
+			display={display}
+			multiple={multiply}
 		/>
 	);
 };
@@ -46,4 +52,9 @@ const Input: React.FC<InputProps> = ({
 export default Input;
 
 // STYLED COMPONENT
-const StyledInput = styled.input``;
+const StyledInput = styled.input<InputProps>`
+	width: 150px;
+	height: 50px;
+
+	${(props) => props.display === 'none' && `display: none;`}
+`;

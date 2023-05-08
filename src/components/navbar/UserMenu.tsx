@@ -12,8 +12,8 @@ export default UserMenu;
 
 // STYLED COMPONENTS
 const CircleMenu = styled.div`
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	background-color: aqua;
 	border-radius: 50%;
 `;
