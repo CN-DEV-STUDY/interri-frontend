@@ -7,12 +7,15 @@ import styled from 'styled-components';
 const Logo = () => {
 	// view
 	return (
-		<a href='#'>
-			<Img
+		<TextLogo>
+			LOGO
+			
+		</TextLogo>
+			/* <Img
 				src={process.env.PUBLIC_URL + '/images/apple-logo.png'}
 				alt='interri logo'
-			/>
-		</a>
+			/> */
+		
 	);
 };
 
@@ -21,4 +24,10 @@ export default Logo;
 // STYLED COMPONENTS
 const Img = styled.img`
 	width: 100px;
+`;
+
+
+const TextLogo = styled.div`
+	font-size: 3.6rem;
+	font-weight: 700;
 `;

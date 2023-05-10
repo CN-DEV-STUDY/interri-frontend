@@ -1,6 +1,6 @@
 import Section from '@/components/common/Section';
 import SecondaryHeading from '@/components/ui/SecondaryHeading';
-import TrendBox from '@/components/section/trend/TrendBox';
+import TrendBox from '@/components/section/TrendBox';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Grid from '@/components/common/Grid';

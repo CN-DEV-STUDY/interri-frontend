@@ -5,6 +5,7 @@ import Menu from '@/components/navbar/Menu';
 import UserMenu from '@/components/navbar/UserMenu';
 import CustomLink from '@/components/ui/CustomLink';
 import Header from '@/components/headers/Header';
+import ButtonLink from '@/components/ui/ButtonLink';
 
 /**
  * @description 메인 헤더 컴포넌트
@@ -16,9 +17,9 @@ const MainHeader = () => {
 			<Logo />
 			<Menu />
 			<Wrapper>
-				<CustomLink to={ROUTES_DESIGN_REQUEST_REGISTRATION}>
+				<ButtonLink to={ROUTES_DESIGN_REQUEST_REGISTRATION}>
 					글 쓰기
-				</CustomLink>
+				</ButtonLink>
 				<UserMenu />
 			</Wrapper>
 		</Header>

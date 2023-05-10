@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle`
         padding: 0;
         margin: 0;
         box-sizing: border-box;
+        color: #1D2133;
     }   
 
     html {
@@ -17,8 +18,7 @@ const GlobalStyles = createGlobalStyle`
     body {
         font-family: sans-serif;
         line-height: 1;
-        font-weight: 400;
-        color: #555;
+        min-width: 144rem;
     }
 `;
 
