@@ -20,7 +20,7 @@ export default Menu;
 // STYLED COMPONENTS
 const Wrapper = styled.div`
 	display: flex;
-	gap: 2rem;
+	gap: 4rem;
 
 	font-size: 2.4rem;
 	font-weight: 600;
@@ -28,7 +28,6 @@ const Wrapper = styled.div`
 	& :link,
 	& :visited {
 		text-decoration: none;
-		color: #fff;
 	}
 
 	:hover,

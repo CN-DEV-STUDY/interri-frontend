@@ -12,29 +12,32 @@ interface SectionProps {
 const Section = ({ width, color, children }: SectionProps) => {
 	// view
 	return (
-		<StyledSection color={color}>
-			<SectionContainer width={width}>{children}</SectionContainer>
-		</StyledSection>
+	
+			<StyledSection color={color} width={width}>{children}</StyledSection>
+		
 	);
 };
 
 export default Section;
 
 // STYLED COMPONENTS
-const StyledSection = styled.section`
-	padding: 4.8rem 0;
-	background-color: ${(props) => props.color || '#fff'};
-`;
 
-const SectionContainer = styled.div<SectionProps>`
+const StyledSection = styled.div<SectionProps>`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	padding: 4rem 0;
 	margin: 0 auto;
+	background-color: ${(props) => props.color};
+
 	${(props) => {
 		if (props.width === 'large') {
-			return 'width: 1300px';
+			return 'min-width: 144rem';
 		}
 
 		if (props.width === 'mideum') {
-			return 'width: 900px';
+			return 'min-width: 900px';
 		}
 	}}
 `;

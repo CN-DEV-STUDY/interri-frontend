@@ -17,7 +17,6 @@ const StyledCustomLink = styled(Link)`
 	display: inline-block;
 
 	padding: 0 16px;
-	color: #fff;
 	font-size: 20px;
 
 	:link,

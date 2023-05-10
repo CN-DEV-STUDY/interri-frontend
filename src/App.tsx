@@ -1,7 +1,7 @@
 import MainHeader from '@/components/headers/MainHeader';
-import HeroSection from '@/components/section/hero/HeroSection';
+import HeroSection from '@/components/section/HeroSection';
 import MainFooter from '@/components/footers/MainFooter';
-import TrendSection from '@/components/section/trend/TrendSection';
+import TrendSection from '@/components/section/TrendSection';
 
 /**
  * @description App 컴포넌트

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 interface ImageProps {
 	path: string;
 	height: number;
-	width?: number;
+	width: number;
 }
 
 /**
@@ -11,7 +11,7 @@ interface ImageProps {
  */
 const Image = ({ path, width, height }: ImageProps) => {
 	// view
-	return <StyledImg src={path} height={height} />;
+	return <StyledImg src={path} height={height} width={width}/>;
 };
 
 export default Image;
@@ -19,4 +19,6 @@ export default Image;
 // STYLED COMPONENTS
 const StyledImg = styled.img`
 	height: ${(props) => props.height}rem;
+	width: ${(props) => props.width}rem;
+	border-radius: 9px;
 `;
