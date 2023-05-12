@@ -16,5 +16,5 @@ export default SecondaryHeading;
 
 // STYLED COMPONENTS
 const StyledH2 = styled.h2`
-	font-size: 4.8rem;
+	font-size: 3rem;
 `;

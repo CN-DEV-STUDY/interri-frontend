@@ -23,6 +23,8 @@ export default Section;
 // STYLED COMPONENTS
 
 const StyledSection = styled.div<SectionProps>`
+	position: absolute;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;

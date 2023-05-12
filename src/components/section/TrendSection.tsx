@@ -1,9 +1,8 @@
-import Section from '@/components/common/Section';
 import SecondaryHeading from '@/components/ui/SecondaryHeading';
-import TrendBox from '@/components/section/TrendBox';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Grid from '@/components/common/Grid';
+import CustomLink from '../ui/CustomLink';
+import TrendBox from './TrendBox';
 
 /**
  * @description 트렌드 섹션 컴포넌트
@@ -11,14 +10,24 @@ import Grid from '@/components/common/Grid';
 const TrendSection = () => {
 	// view
 	return (
-		<Section width={'large'}>
-			<Grid repeat={2} column>
+		<Section>
+			<Flex>
 				<SecondaryHeading>인테리어 트렌드</SecondaryHeading>
 				<MoreLink to=''>더보기</MoreLink>
-
+			</Flex>
+			<Flex>
 				<TrendBox title={'모던'} />
+			</Flex>
+			<Flex>
 				<TrendBox title={'클래식'} />
-			</Grid>
+			</Flex>
+
+			{/* <Grid repeat={2} column>
+				
+				
+
+				
+			</Grid> */}
 		</Section>
 	);
 };
@@ -26,7 +35,23 @@ const TrendSection = () => {
 export default TrendSection;
 
 // STYLED COMPONENTS
+const Section = styled.div`
+	padding: 0 4rem;
+	margin: 100px auto;
+
+`;
+
+const Flex = styled.div`
+	display: flex;
+	align-items: end;
+	justify-content: space-between;
+	min-width: inherit;	
+
+`;
+
 const MoreLink = styled(Link)`
 	font-size: 14px;
-	justify-self: end;
+	color: #1D2133;
 `;
+
+
