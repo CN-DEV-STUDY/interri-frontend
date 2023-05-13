@@ -12,9 +12,7 @@ interface SectionProps {
 const Section = ({ width, color, children }: SectionProps) => {
 	// view
 	return (
-	
-			<StyledSection color={color} width={width}>{children}</StyledSection>
-		
+		<StyledSection color={color} width={width}>{children}</StyledSection>
 	);
 };
 
@@ -23,14 +21,14 @@ export default Section;
 // STYLED COMPONENTS
 
 const StyledSection = styled.div<SectionProps>`
-	position: absolute;
+	position: relative;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
 	padding: 4rem 0;
-	margin: 0 auto;
+	margin: 0 auto 10rem auto;
 	background-color: ${(props) => props.color};
 
 	${(props) => {

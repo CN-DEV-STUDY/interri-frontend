@@ -17,10 +17,7 @@ interface CardImageProps {
 const DesignCard = ({ userId, viewCount }: DesignCardProps) => {
 	// view
 	return (
-		<CardContainer>
-			<CardImage
-				url={process.env.PUBLIC_URL + '/images/design-req1.jpg'}
-			/>
+		<CardContainer url={process.env.PUBLIC_URL + '/images/design-req1.jpg'}>
 			<DesignCardInfo userId={userId} viewCount={viewCount} />
 		</CardContainer>
 	);
@@ -29,13 +26,17 @@ const DesignCard = ({ userId, viewCount }: DesignCardProps) => {
 export default DesignCard;
 
 // STYLED COMPONENTS
-const CardContainer = styled.div`
-	width: 25rem;
-`;
+const CardContainer = styled.div<CardImageProps>`
+	position: relative;
 
-const CardImage = styled.div<CardImageProps>`
+	flex-shrink: 0;
+	width: 31rem;
+	height: 36rem;
+	border-radius: 9px;
+	margin-bottom: 20px;
+
 	background-image: url(${(props) => props.url});
 	background-size: cover;
-	height: 20rem;
-	border-radius: 9px;
+	box-shadow: 0px 8px 12px rgba(73, 84, 128, 0.5);
 `;
+
