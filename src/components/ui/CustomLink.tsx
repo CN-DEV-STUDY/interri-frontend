@@ -13,7 +13,7 @@ const CustomLink = ({ to, children }: CustomLinkProps) => {
 export default CustomLink;
 
 // STYLED COMPONENTS
-const StyledCustomLink = styled(Link)`
+const StyledCustomLink = styled(Link)<CustomLinkProps>`
 	display: inline-block;
 
 	padding: 0 16px;
@@ -22,6 +22,7 @@ const StyledCustomLink = styled(Link)`
 	:link,
 	:visited {
 		text-decoration: none;
+		
 	}
 
 	:hover,

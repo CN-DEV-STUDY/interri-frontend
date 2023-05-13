@@ -16,5 +16,8 @@ export default SecondaryHeading;
 
 // STYLED COMPONENTS
 const StyledH2 = styled.h2`
-	font-size: 4.8rem;
+	font-size: 3rem;
+	font-weight: 600;
+	line-height: 36px;
+	text-shadow: 0px 4px 4px rgba(0, 26, 114, 0.4);
 `;

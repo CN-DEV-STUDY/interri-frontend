@@ -1,11 +1,21 @@
 import styled from 'styled-components';
 import Section from '@/components/common/Section';
 import Image from '@/components/ui/Image';
+import { useState } from 'react';
+
+interface DotsProps {
+	currentPageNumber: number
+}
 
 /**
  * @description HeroSection 컴포넌트
  */
 const HeroSection = () => {
+
+	// state
+	// TODO: 세터에 1~6사이의 값 인지 체크하는 로직 필요
+	const [currentPageNumber, setCurrentPageNumber] = useState<number>(1);
+
 	return (
 		<Section width={'large'} color={'#1D2133'}>
 			<Flex>
@@ -29,6 +39,14 @@ const HeroSection = () => {
 					</svg>
 				</button>
 			</Flex>
+			<Dots currentPageNumber={currentPageNumber}>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</Dots>
 		</Section>
 	);
 };
@@ -98,4 +116,30 @@ const Flex = styled.div`
 		top: 50%;
 		transform: translate(0%, -50%);
 	}
+`;
+
+
+const Dots = styled.div<DotsProps>`
+	position: absolute;
+	bottom: 15px;
+	left: 50%;
+	transform: translate(-50%, 0);
+
+	display: flex;
+	gap: 5px;
+
+	div {
+		border-radius: 50%;
+		width: 5px;
+		height: 5px;
+		background-color: #fff;
+	}
+
+	${props => 
+		`div:nth-child(${props.currentPageNumber}) {
+			background-color: #7486CC;
+		}`
+	}
+
+
 `;
