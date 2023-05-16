@@ -13,4 +13,7 @@ const Textarea = ({ placeholder }: TextareaProps) => {
 export default Textarea;
 
 // STYLED COMPONENTS
-const StyledTextarea = styled.textarea``;
+const StyledTextarea = styled.textarea`
+	border-radius: 9px;
+	padding: 10px 20px;
+`;
