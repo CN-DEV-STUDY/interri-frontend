@@ -55,6 +55,8 @@ export default Input;
 const StyledInput = styled.input<InputProps>`
 	width: 150px;
 	height: 50px;
+	border-radius: 9px;
+	border: 1px solid #000;
 
 	${(props) => props.display === 'none' && `display: none;`}
 `;

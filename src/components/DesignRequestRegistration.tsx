@@ -1,15 +1,10 @@
 import RegistrationHeader from '@/components/headers/RegistrationHeader';
-import Section from '@/components/common/Section';
-import Select from '@/components/ui/Select';
-import Flex from '@/components/common/Flex';
 
 import { getRegistrationResource } from '@/api/designReq';
 import { useEffect, useRef, useState } from 'react';
 import Input from '@/components/ui/Input';
 import styled from 'styled-components';
 import Textarea from '@/components/ui/Textarea';
-import Grid from './common/Grid';
-import Button from './ui/Button';
 
 interface Data {
 	sizeList: SizeList[];
@@ -48,6 +43,10 @@ interface DesignRequestForm {
 	maxPrice: number;
 	dueDate: Date;
 	tempYn: string;
+}
+
+interface FlexProps {
+	gap?: number
 }
 
 /**
@@ -122,8 +121,9 @@ const DesignRequestRegistration = () => {
 			{!isLoading && (
 				<>
 					<RegistrationHeader onSave={onSaveHanlder} />
-					<Section width={'mideum'}>
-						<Flex gap={20} mb={30}>
+					<hr />
+					<Section>
+						<Flex gap={25}>
 							<Select onChange={onChange}>
 								<option value=''>평수</option>
 								{data.sizeList.map((size) => (
@@ -160,23 +160,24 @@ const DesignRequestRegistration = () => {
 								))}
 							</Select>
 						</Flex>
-						<Flex gap={15} mb={30}>
-							<Label htmlFor=''>최대 가격</Label>
-							<Input onChange={onChange}></Input>
-
-							<Label htmlFor=''>마감 기한</Label>
-							<Input type={'date'} onChange={onChange}></Input>
+						<Flex gap={40}>
+							<div>
+								<Label htmlFor=''>최대 가격</Label>
+								<StyledInput onChange={onChange}></StyledInput>
+							</div>
+							<div>
+								<Label htmlFor=''>마감 기한</Label>
+								<StyledInput type={'date'} onChange={onChange}></StyledInput>
+							</div>
 						</Flex>
-						<Flex mb={30}>
-							<Grid repeat={5} column gap={15}>
-								{data.styleList.map((style) => (
-									<Button key={style.id} sm>
-										{style.name}
-									</Button>
-								))}
-							</Grid>
-						</Flex>
-						<Flex gap={30}>
+						<Grid>
+							{data.styleList.map((style) => (
+								<Button key={style.id}>
+									{style.name}
+								</Button>
+							))}
+						</Grid>
+						<Flex gap={40}>
 							<ImageBox onClick={onInputButtonClick}>
 								<Input
 									type={'file'}
@@ -203,12 +204,11 @@ const DesignRequestRegistration = () => {
 											d='M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z'
 										/>
 									</Svg>
-
 									<p>사진 올리기</p>
 									<p>* 최대 10장까지</p>
 								</ImageContainer>
 							</ImageBox>
-							<Flex column>
+							<FlexColumn>
 								<Select onChange={onChange}>
 									<option value=''>공간</option>
 									{data.roomTypeList.map((roomType) => (
@@ -224,8 +224,9 @@ const DesignRequestRegistration = () => {
 									placeholder={'사진에 대해서 설명해주세요.'}
 									onChange={onChange}
 								/>
-							</Flex>
+							</FlexColumn>
 						</Flex>
+						<AddButton>사진 추가</AddButton>
 					</Section>
 				</>
 			)}
@@ -235,23 +236,118 @@ const DesignRequestRegistration = () => {
 
 export default DesignRequestRegistration;
 
+// STYLED COMPONENTS
+const Section = styled.section`
+	width: 110rem;
+	margin: 4rem auto;
+
+	> button {
+		float: right;
+	}
+`;
+
+const Flex = styled.div<FlexProps>`
+	display: flex;
+	gap: ${(props) => props.gap}px;
+	margin-bottom: 4rem;
+
+	div {
+		display: flex;
+		align-items: center;
+
+		label {
+			margin-right: 2.5rem;
+		}
+	}
+
+	div:first-child {
+		position: relative;
+		label::before {
+			content: "(단위: 원)";
+			left: 10px;
+			bottom: -10px;
+			position: absolute;
+			font-size: 1.4rem;
+			color: #96A6CC;
+		}
+	}
+`;
+
+const FlexColumn = styled.div`
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+
+	select { 
+		width: 500px;
+	}
+
+	textarea {
+		width: 500px;
+		height: 100%;
+	}
+`;
+
+const Select = styled.select`
+	min-width: 25.65rem;
+	height: 5rem;
+	border-radius: 9px;
+	font-size: 2rem;
+	border-color: #96A6CC;
+	color: #96A6CC;
+
+	/* 기본 화살표를 제거하기 위한 코드 */
+	-moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+
+	/* SVG 화살표 이미지를 설정하는 코드 */
+	background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>');
+	background-repeat: no-repeat;
+	background-position: calc(100% - 1.5rem) center !important;
+	background-size: 16px; /* 원하는 크기로 조정하세요 */
+
+	option {
+		text-align: center;
+	}
+`;
+
 const Label = styled.label`
-	font-size: 2.2rem;
+	font-size: 2.4rem;
+`;
+
+const StyledInput = styled.input`
+	min-width: 24rem;
+	height: 4rem;
+	border-radius: 9px;
+	border: 1px solid #000;
+	text-align: center;
+	font-size: 2rem;;
+`;
+
+const Grid = styled.div`
+	display: grid;
+	grid-template-columns: repeat(8, 1fr);
+	row-gap: 1rem;
+	column-gap: 1rem;
+	width: 110rem;
+	margin-bottom: 4rem;
 `;
 
 const ImageBox = styled.button`
 	position: relative;
 
 	border: none;
-	width: 400px;
-	height: 250px;
+	border-radius: 9px;
+	width: 600px;
+	height: 500px;
 	background-color: lightgray;
 	cursor: pointer;
 	:hover {
 		background-color: #e2e2e2;
 
-		div svg,
-		p {
+		svg,p {
+			stroke: #949494;
 			color: #949494;
 		}
 	}
@@ -272,4 +368,26 @@ const ImageContainer = styled.div`
 const Svg = styled.svg`
 	width: 58px;
 	height: 58px;
+`;
+
+const Button = styled.button`
+	border: none;
+	border-radius: 9px;
+	background-color: #CBD3E6;
+	color: #fff;
+	font-size: 18px;
+	font-weight: 500;
+	padding: 10px 12px;
+	cursor: pointer;
+`;
+
+const AddButton = styled.button`
+	border: none;
+	border-radius: 9px;
+	background-color: #495480;
+	color: #fff;
+	font-size: 18px;
+	font-weight: 500;
+	padding: 16px 48px;
+	cursor: pointer;
 `;

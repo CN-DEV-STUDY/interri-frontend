@@ -1,6 +1,5 @@
 import Header from '@/components/headers/Header';
 import Logo from '@/components/navbar/Logo';
-import Button from '@/components/ui/Button';
 import styled from 'styled-components';
 
 interface RegistrationHeaderProps {
@@ -25,12 +24,12 @@ const RegistrationHeader = ({ onSave }: RegistrationHeaderProps) => {
 		<Header>
 			<Logo />
 			<ButtonWrapper>
-				<Button
+				<OutlinedButton
 					type={'submit'}
 					onClick={(event) => onSaveHanlder(true, event)}
 				>
 					임시 저장
-				</Button>
+				</OutlinedButton>
 				<Button
 					type={'submit'}
 					onClick={(event) => onSaveHanlder(false, event)}
@@ -38,6 +37,7 @@ const RegistrationHeader = ({ onSave }: RegistrationHeaderProps) => {
 					등록하기
 				</Button>
 			</ButtonWrapper>
+			
 		</Header>
 	);
 };
@@ -49,3 +49,37 @@ const ButtonWrapper = styled.div`
 	display: flex;
 	gap: 20px;
 `;
+
+const Button = styled.button`
+	border: none;
+	border-radius: 9px;
+	background-color: #1D2133;
+	color: #fff;
+	font-size: 18px;
+	font-weight: 500;
+	padding: 16px 48px;
+	cursor: pointer;
+
+	:hover {
+		background-color: #fff;
+		color: #1D2133;
+		box-shadow: inset 0 0 0 0.5px #1D2133; /* inset: 그림자가 요소 안쪽으로 추가된다. */
+	}
+`;
+
+const OutlinedButton = styled.button`
+	border: 1px solid #1D2133;
+	border-radius: 9px;
+	background-color: #fff;
+	color: #1D2133;
+	font-size: 18px;
+	font-weight: 500;
+	padding: 16px 48px;
+	cursor: pointer;
+
+	:hover {
+		background-color: #495480;
+		color: #fff;
+	}
+`;
+

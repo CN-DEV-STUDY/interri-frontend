@@ -37,7 +37,7 @@ export default Button;
 const StyledButton = styled.button<ButtonProps>`
 	border: none;
 	border-radius: 5px;
-	background-color: #b5b3b4;
+	background-color: #1D2133;
 	color: #fff;
 	font-size: 18px;
 	font-weight: 500;
