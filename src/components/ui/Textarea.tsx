@@ -6,8 +6,8 @@ interface TextareaProps {
 	onChange: ChangeEventHandler;
 }
 
-const Textarea = ({ placeholder }: TextareaProps) => {
-	return <StyledTextarea placeholder={placeholder} />;
+const Textarea = ({ placeholder, onChange }: TextareaProps) => {
+	return <StyledTextarea placeholder={placeholder} onChange={onChange} />;
 };
 
 export default Textarea;
