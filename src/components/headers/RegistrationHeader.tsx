@@ -3,20 +3,20 @@ import Logo from '@/components/navbar/Logo';
 import styled from 'styled-components';
 
 interface RegistrationHeaderProps {
-	onSave: (isTempSave: boolean) => void;
+	onSubmit: (isTempSave: boolean) => void;
 }
 
 /**
  * @description 디자인 요청 등록 페이지 헤더
  */
-const RegistrationHeader = ({ onSave }: RegistrationHeaderProps) => {
+const RegistrationHeader = ({ onSubmit }: RegistrationHeaderProps) => {
 	// event
 	const onSaveHanlder = (
 		isTempSave: boolean,
 		event: React.MouseEvent<HTMLButtonElement>
 	) => {
 		event.preventDefault();
-		onSave(isTempSave);
+		onSubmit(isTempSave);
 	};
 
 	// view

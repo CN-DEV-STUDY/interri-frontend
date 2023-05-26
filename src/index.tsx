@@ -8,10 +8,10 @@ const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 root.render(
-	<React.StrictMode>
+	// <React.StrictMode>
 		<RecoilRoot>
 			<GlobalStyles />
 			<RouterProvider router={router} />
 		</RecoilRoot>
-	</React.StrictMode>
+	// </React.StrictMode>
 );
