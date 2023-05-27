@@ -15,7 +15,6 @@ function DesignRequestDetail() {
             <ContentWrap>
                 <ContentRowItemWrap>
                     <SvgRowContentWrap>
-
                         <Svg width={20} height={20}>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -304,11 +303,12 @@ const ContentColItemWrap = styled.div`
     display: flex;
     /* gap: 115px; */
     align-items: center;
+    justify-content: space-evenly;
 `;
 
 const SvgColContentWrap = styled.div`
     display: flex;
-    flex: 1;
+    /* flex: 1; */
     flex-direction: column;
     align-items: center;
     gap: 40px;
