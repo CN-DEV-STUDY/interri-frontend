@@ -9,7 +9,7 @@ interface RegistrationHeaderProps {
 /**
  * @description 디자인 요청 등록 페이지 헤더
  */
-const RegistrationHeader = ({ onSubmit }: RegistrationHeaderProps) => {
+const DesignReqRegistHeader = ({ onSubmit }: RegistrationHeaderProps) => {
 	// event
 	const onSaveHanlder = (
 		isTempSave: boolean,
@@ -21,30 +21,32 @@ const RegistrationHeader = ({ onSubmit }: RegistrationHeaderProps) => {
 
 	// view
 	return (
-		<Header>
-			<Logo />
-			<ButtonWrapper>
-				<OutlinedButton
-					type={'submit'}
-					onClick={(event) => onSaveHanlder(true, event)}
-				>
-					임시 저장
-				</OutlinedButton>
-				<Button
-					type={'submit'}
-					onClick={(event) => onSaveHanlder(false, event)}
-				>
-					등록하기
-				</Button>
-			</ButtonWrapper>
-			
-		</Header>
+		<>
+			<hr />
+			<Header>
+				<Logo />
+				<ButtonWrapper>
+					<OutlinedButton
+						type={'submit'}
+						onClick={(event) => onSaveHanlder(true, event)}
+					>
+						임시 저장
+					</OutlinedButton>
+					<Button
+						type={'submit'}
+						onClick={(event) => onSaveHanlder(false, event)}
+					>
+						등록하기
+					</Button>
+				</ButtonWrapper>
+			</Header>
+		</>
 	);
 };
 
-export default RegistrationHeader;
+export default DesignReqRegistHeader;
 
-// STYLED COMPONENTS
+// styles
 const ButtonWrapper = styled.div`
 	display: flex;
 	gap: 20px;
@@ -53,7 +55,7 @@ const ButtonWrapper = styled.div`
 const Button = styled.button`
 	border: none;
 	border-radius: 9px;
-	background-color: #1D2133;
+	background-color: #1d2133;
 	color: #fff;
 	font-size: 18px;
 	font-weight: 500;
@@ -62,16 +64,16 @@ const Button = styled.button`
 
 	:hover {
 		background-color: #fff;
-		color: #1D2133;
-		box-shadow: inset 0 0 0 0.5px #1D2133; /* inset: 그림자가 요소 안쪽으로 추가된다. */
+		color: #1d2133;
+		box-shadow: inset 0 0 0 0.5px #1d2133; /* inset: 그림자가 요소 안쪽으로 추가된다. */
 	}
 `;
 
 const OutlinedButton = styled.button`
-	border: 1px solid #1D2133;
+	border: 1px solid #1d2133;
 	border-radius: 9px;
 	background-color: #fff;
-	color: #1D2133;
+	color: #1d2133;
 	font-size: 18px;
 	font-weight: 500;
 	padding: 16px 48px;
@@ -82,4 +84,3 @@ const OutlinedButton = styled.button`
 		color: #fff;
 	}
 `;
-
