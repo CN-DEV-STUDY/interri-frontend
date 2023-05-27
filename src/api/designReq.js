@@ -8,11 +8,11 @@ const getRegistrationResource = async () => {
 	return data.data;
 };
 
-const postDesignRegistration = async (designRequest) => {
+const postDesignReqRegist = async (designRequest) => {
 	const { data } = await axios.post(
-		process.env.REACT_APP_BASE_URL + '/design/req', designRequest
-	)
-}
+		process.env.REACT_APP_BASE_URL + '/design/req',
+		designRequest
+	);
+};
 
-export { getRegistrationResource, postDesignRegistration };
-
+export { getRegistrationResource, postDesignReqRegist };
