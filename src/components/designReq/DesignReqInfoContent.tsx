@@ -1,3 +1,4 @@
+import { priceFormat } from "@/utils/priceFormat";
 import styled from "styled-components";
 
 interface ContentProps {
@@ -9,15 +10,37 @@ interface ColorProps {
     bgColor?: string;
 }
 
+interface detailProps {
+    sizeNm?: string; // 평수
+    housingType?: string; // 주거 형태
+    mainColor?: string; // 메인 컬러
+    subColor?: string; // 서브 컬러
+    maxPrice?: number; // 최대 가격
+    dueDate?: string; // 만기일
+}
+
 /**
  * @description 디자인 요청 상세 > 평수, 주거형태, 스타일, 메인컬러, 서브컬러 컴포넌트
  */
-function DesignReqInfoContent() {
+function DesignReqInfoContent({
+    sizeNm,
+    housingType,
+    mainColor,
+    subColor,
+    maxPrice,
+    dueDate,
+}: detailProps) {
+    const date = new Date(`${dueDate}`);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const price = priceFormat(maxPrice);
+
     return (
         <>
             <ContentColItemWrap>
                 <SvgColContentWrap>
-                    <Svg width={30} height={30}>
+                    <Svg width={40} height={40}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -33,11 +56,11 @@ function DesignReqInfoContent() {
                         </svg>
                     </Svg>
                     <Content size={36}>평수</Content>
-                    <Content size={24}>10평 미만</Content>
+                    <Content size={24}>{sizeNm}</Content>
                 </SvgColContentWrap>
 
                 <SvgColContentWrap>
-                    <Svg width={30} height={30}>
+                    <Svg width={40} height={40}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -53,10 +76,10 @@ function DesignReqInfoContent() {
                         </svg>
                     </Svg>
                     <Content size={36}>주거 형태</Content>
-                    <Content size={24}>원룸</Content>
+                    <Content size={24}>{housingType}</Content>
                 </SvgColContentWrap>
                 <SvgColContentWrap>
-                    <Svg width={30} height={30}>
+                    <Svg width={40} height={40}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -75,24 +98,26 @@ function DesignReqInfoContent() {
                     <Content size={24}>모던</Content>
                 </SvgColContentWrap>
                 <SvgColContentWrap>
-                    <Color bgColor={"#FFD8c1"}></Color>
+                    <Color bgColor={mainColor}></Color>
                     <Content size={36}>메인 컬러</Content>
-                    <Content size={24}>#FFD8C1</Content>
+                    <Content size={24}>{mainColor}</Content>
                 </SvgColContentWrap>
                 <SvgColContentWrap>
-                    <Color bgColor={"#000"}></Color>
+                    <Color bgColor={subColor}></Color>
                     <Content size={36}>서브 컬러</Content>
-                    <Content size={24}>#000</Content>
+                    <Content size={24}>{subColor}</Content>
                 </SvgColContentWrap>
             </ContentColItemWrap>
             <ContentItemWrap>
                 <Content size={36}>
-                    최대 가격:<b>150만원</b>
+                    최대 가격:<b>{price}</b>
                 </Content>
                 <Content size={36}>
                     <span> | </span>
                 </Content>
-                <Content size={36}>5월 25일까지</Content>
+                <Content size={36}>
+                    {month}월 {day}일까지
+                </Content>
                 <Content size={36} color={"#808080"}>
                     <span>(14일 남음)</span>
                 </Content>
@@ -124,6 +149,7 @@ const Color = styled.div<ColorProps>`
     width: 40px;
     height: 40px;
     background-color: ${(props) => props.bgColor};
+    box-shadow: 0px 0px 2px #5b5b5b;
 `;
 
 const ContentItemWrap = styled.div`
