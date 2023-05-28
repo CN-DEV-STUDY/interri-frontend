@@ -6,9 +6,9 @@ import {
 } from "@/routes/routes";
 import { createBrowserRouter } from "react-router-dom";
 import App from "@/App";
-import DesignRequestRegistration from "@/components/DesignRequestRegistration";
 import Home from "@/components/Home";
 import DesignReqDetail from "@/container/designReq/DesignReqDetail";
+import DesignReqRegist from "@/components/DesignReqRegist";
 
 const router = createBrowserRouter([
     {
@@ -29,12 +29,8 @@ const router = createBrowserRouter([
     },
     {
         path: ROUTES_DESIGN_REQUEST_REGISTRATION,
-        element: <DesignRequestRegistration />,
+        element: <DesignReqRegist />,
     },
-	{
-		path: ROUTES_DESIGN_REQUEST_REGISTRATION,
-		element: <DesignRequestRegistration />,
-	},
 ]);
 
 export default router;
