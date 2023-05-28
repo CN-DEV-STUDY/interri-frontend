@@ -57,27 +57,22 @@ type FlexProps = {
 	gap?: number;
 };
 
-const dataObj: Data = {
-	sizeList: [],
-	housingTypeList: [],
-	colorList: [],
-	roomTypeList: [],
-	styleList: [],
-};
-
 const DesignReqRegistBody = () => {
 	// state
-	const [data, setData] = useState<Data>(dataObj);
+	const [data, setData] = useState<Data>({
+		sizeList: [],
+		housingTypeList: [],
+		colorList: [],
+		roomTypeList: [],
+		styleList: [],
+	});
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState<Error | null>();
-	const [inputFiles, setInputFiles] = useState<File[]>([]);
 	const inputFileRef = useRef<HTMLInputElement>(null);
-	const [form, setForm] = useState<DesignRequestForm | null>(null);
-
 	const [file, setFile] = useState<File>();
 	const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
 
-	const [designRequest, setDesignRequest] = useRecoilState(designRequestState);
+	const setDesignRequest = useSetRecoilState(designRequestState);
 	const [designRequestInfo, setDesignRequestInfo] = useState<designRequestInfo[]>([
 		{
 			images: [],
@@ -85,11 +80,6 @@ const DesignReqRegistBody = () => {
 			content: '',
 		},
 	]);
-
-	useEffect(() => {
-		console.log('designRequest', designRequest);
-		console.log('designRequestInfo', designRequestInfo);
-	});
 
 	useEffect(() => {
 		setDesignRequest((prevState: designRequest) => {
