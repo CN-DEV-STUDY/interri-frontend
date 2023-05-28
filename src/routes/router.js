@@ -31,6 +31,10 @@ const router = createBrowserRouter([
         path: ROUTES_DESIGN_REQUEST_REGISTRATION,
         element: <DesignRequestRegistration />,
     },
+	{
+		path: ROUTES_DESIGN_REQUEST_REGISTRATION,
+		element: <DesignRequestRegistration />,
+	},
 ]);
 
 export default router;

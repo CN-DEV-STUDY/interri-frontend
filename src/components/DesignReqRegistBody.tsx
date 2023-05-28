@@ -8,6 +8,7 @@ import designRequestState from '@/global/designRequest/designRequestState';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import designRequest from '@/global/designRequest/designRequestType';
 import designRequestInfo from '@/global/designRequest/designRequetInfoType';
+import ConfirmPopup from './common/popup/ConfirmPopup';
 
 interface Data {
 	sizeList: SizeList[];
@@ -56,27 +57,22 @@ type FlexProps = {
 	gap?: number;
 };
 
-const dataObj: Data = {
-	sizeList: [],
-	housingTypeList: [],
-	colorList: [],
-	roomTypeList: [],
-	styleList: [],
-};
-
 const DesignReqRegistBody = () => {
 	// state
-	const [data, setData] = useState<Data>(dataObj);
+	const [data, setData] = useState<Data>({
+		sizeList: [],
+		housingTypeList: [],
+		colorList: [],
+		roomTypeList: [],
+		styleList: [],
+	});
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [error, setError] = useState<Error | null>();
-	const [inputFiles, setInputFiles] = useState<File[]>([]);
 	const inputFileRef = useRef<HTMLInputElement>(null);
-	const [form, setForm] = useState<DesignRequestForm | null>(null);
-
 	const [file, setFile] = useState<File>();
 	const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
 
-	const [designRequest, setDesignRequest] = useRecoilState(designRequestState);
+	const setDesignRequest = useSetRecoilState(designRequestState);
 	const [designRequestInfo, setDesignRequestInfo] = useState<designRequestInfo[]>([
 		{
 			images: [],
@@ -84,11 +80,6 @@ const DesignReqRegistBody = () => {
 			content: '',
 		},
 	]);
-
-	useEffect(() => {
-		console.log('designRequest', designRequest);
-		console.log('designRequestInfo', designRequestInfo);
-	});
 
 	useEffect(() => {
 		setDesignRequest((prevState: designRequest) => {
@@ -215,103 +206,105 @@ const DesignReqRegistBody = () => {
 		});
 	};
 	return (
-		<Section>
-			<Flex gap={25}>
-				<Select onChange={onSizeChange}>
-					<option value=''>평수</option>
-					{data.sizeList.map((size) => (
-						<option key={size.id} value={size.id}>
-							{size.name}
-						</option>
-					))}
-				</Select>
-				<Select onChange={onHousingTypeChange}>
-					<option value=''>주거 형태</option>
-					{data.housingTypeList.map((housingType) => (
-						<option key={housingType.id} value={housingType.id}>
-							{housingType.name}
-						</option>
-					))}
-				</Select>
-				<Select onChange={onMainColorChange}>
-					<option value=''>메인 컬러</option>
-					{data.colorList.map((color, index) => (
-						<option key={index} value={color}>
-							{color}
-						</option>
-					))}
-				</Select>
-				<Select onChange={onSubColorChange}>
-					<option value=''>서브 컬러</option>
-					{data.colorList.map((color, index) => (
-						<option key={index} value={color}>
-							{color}
-						</option>
-					))}
-				</Select>
-			</Flex>
-			<Flex gap={40}>
-				<div>
-					<Label htmlFor=''>최대 가격</Label>
-					<StyledInput onChange={onMaxPriceChange}></StyledInput>
-				</div>
-				<div>
-					<Label htmlFor=''>마감 기한</Label>
-					<StyledInput type={'date'} onChange={onDuedateChange}></StyledInput>
-				</div>
-			</Flex>
-			<Grid>
-				{data.styleList.map((style) => (
-					<Button key={style.id}>{style.name}</Button>
-				))}
-			</Grid>
-			<Flex gap={40}>
-				{imagePreviewUrl && (
-					<ImageBox>
-						<Image src={imagePreviewUrl} />
-					</ImageBox>
-				)}
-				{!imagePreviewUrl && (
-					<ImageBox onClick={onInputButtonClick}>
-						<Input type={'file'} display={'none'} inputRef={inputFileRef} onChange={onImageChange} />
-						<ImageContainer>
-							<Svg
-								xmlns='http://www.w3.org/2000/svg'
-								fill='none'
-								viewBox='0 0 24 24'
-								strokeWidth='1.5'
-								stroke='currentColor'
-							>
-								<path
-									strokeLinecap='round'
-									strokeLinejoin='round'
-									d='M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z'
-								/>
-								<path
-									strokeLinecap='round'
-									strokeLinejoin='round'
-									d='M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z'
-								/>
-							</Svg>
-							<p>사진 올리기</p>
-							<p>* 최대 10장까지</p>
-						</ImageContainer>
-					</ImageBox>
-				)}
-				<FlexColumn>
-					<Select onChange={onRoomTypeChange}>
-						<option value=''>공간</option>
-						{data.roomTypeList.map((roomType) => (
-							<option key={roomType.id} value={roomType.id}>
-								{roomType.name}
+		<>
+			<Section>
+				<Flex gap={25}>
+					<Select onChange={onSizeChange}>
+						<option value=''>평수</option>
+						{data.sizeList.map((size) => (
+							<option key={size.id} value={size.id}>
+								{size.name}
 							</option>
 						))}
 					</Select>
-					<Textarea placeholder={'사진에 대해서 설명해주세요.'} onChange={onContentChange} />
-				</FlexColumn>
-			</Flex>
-			<AddButton>사진 추가</AddButton>
-		</Section>
+					<Select onChange={onHousingTypeChange}>
+						<option value=''>주거 형태</option>
+						{data.housingTypeList.map((housingType) => (
+							<option key={housingType.id} value={housingType.id}>
+								{housingType.name}
+							</option>
+						))}
+					</Select>
+					<Select onChange={onMainColorChange}>
+						<option value=''>메인 컬러</option>
+						{data.colorList.map((color, index) => (
+							<option key={index} value={color}>
+								{color}
+							</option>
+						))}
+					</Select>
+					<Select onChange={onSubColorChange}>
+						<option value=''>서브 컬러</option>
+						{data.colorList.map((color, index) => (
+							<option key={index} value={color}>
+								{color}
+							</option>
+						))}
+					</Select>
+				</Flex>
+				<Flex gap={40}>
+					<div>
+						<Label htmlFor=''>최대 가격</Label>
+						<StyledInput onChange={onMaxPriceChange}></StyledInput>
+					</div>
+					<div>
+						<Label htmlFor=''>마감 기한</Label>
+						<StyledInput type={'date'} onChange={onDuedateChange}></StyledInput>
+					</div>
+				</Flex>
+				<Grid>
+					{data.styleList.map((style) => (
+						<Button key={style.id}>{style.name}</Button>
+					))}
+				</Grid>
+				<Flex gap={40}>
+					{imagePreviewUrl && (
+						<ImageBox>
+							<Image src={imagePreviewUrl} />
+						</ImageBox>
+					)}
+					{!imagePreviewUrl && (
+						<ImageBox onClick={onInputButtonClick}>
+							<Input type={'file'} display={'none'} inputRef={inputFileRef} onChange={onImageChange} />
+							<ImageContainer>
+								<Svg
+									xmlns='http://www.w3.org/2000/svg'
+									fill='none'
+									viewBox='0 0 24 24'
+									strokeWidth='1.5'
+									stroke='currentColor'
+								>
+									<path
+										strokeLinecap='round'
+										strokeLinejoin='round'
+										d='M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z'
+									/>
+									<path
+										strokeLinecap='round'
+										strokeLinejoin='round'
+										d='M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z'
+									/>
+								</Svg>
+								<p>사진 올리기</p>
+								<p>* 최대 10장까지</p>
+							</ImageContainer>
+						</ImageBox>
+					)}
+					<FlexColumn>
+						<Select onChange={onRoomTypeChange}>
+							<option value=''>공간</option>
+							{data.roomTypeList.map((roomType) => (
+								<option key={roomType.id} value={roomType.id}>
+									{roomType.name}
+								</option>
+							))}
+						</Select>
+						<Textarea placeholder={'사진에 대해서 설명해주세요.'} onChange={onContentChange} />
+					</FlexColumn>
+				</Flex>
+				<AddButton>사진 추가</AddButton>
+			</Section>
+		</>
 	);
 };
 

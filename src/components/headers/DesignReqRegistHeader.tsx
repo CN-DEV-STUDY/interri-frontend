@@ -1,6 +1,7 @@
 import Header from '@/components/headers/Header';
 import Logo from '@/components/navbar/Logo';
 import styled from 'styled-components';
+import ConfirmPopup from '../common/popup/ConfirmPopup';
 
 interface RegistrationHeaderProps {
 	onSubmit: (isTempSave: boolean) => void;
@@ -11,10 +12,7 @@ interface RegistrationHeaderProps {
  */
 const DesignReqRegistHeader = ({ onSubmit }: RegistrationHeaderProps) => {
 	// event
-	const onSaveHanlder = (
-		isTempSave: boolean,
-		event: React.MouseEvent<HTMLButtonElement>
-	) => {
+	const onSaveHanlder = (isTempSave: boolean, event: React.MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 		onSubmit(isTempSave);
 	};
@@ -22,24 +20,18 @@ const DesignReqRegistHeader = ({ onSubmit }: RegistrationHeaderProps) => {
 	// view
 	return (
 		<>
-			<hr />
 			<Header>
 				<Logo />
 				<ButtonWrapper>
-					<OutlinedButton
-						type={'submit'}
-						onClick={(event) => onSaveHanlder(true, event)}
-					>
+					<OutlinedButton type={'submit'} onClick={(event) => onSaveHanlder(true, event)}>
 						임시 저장
 					</OutlinedButton>
-					<Button
-						type={'submit'}
-						onClick={(event) => onSaveHanlder(false, event)}
-					>
+					<Button type={'submit'} onClick={(event) => onSaveHanlder(false, event)}>
 						등록하기
 					</Button>
 				</ButtonWrapper>
 			</Header>
+			<hr />
 		</>
 	);
 };
