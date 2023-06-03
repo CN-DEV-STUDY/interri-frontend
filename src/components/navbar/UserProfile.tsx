@@ -1,11 +1,17 @@
 import styled from "styled-components";
+import { MouseEvent } from "react";
 
 /**
  * @description 유저 프로필 컴포넌트
  */
-function UserProfile() {
+
+interface Props {
+  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
+}
+
+function UserProfile({ onClick }: Props) {
   // view
-  return <Circle />;
+  return <Circle onClick={onClick} />;
 }
 
 export default UserProfile;
