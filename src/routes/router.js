@@ -7,9 +7,9 @@ import {
 } from "@/routes/routes";
 import { createBrowserRouter } from "react-router-dom";
 import App from "@/App";
-import DesignRequestRegistration from "@/components/DesignReqRegist";
+import DesignReqRegist from "@/components/DesignReqRegist";
 import Home from "@/components/Home";
-import DesignRequestDetail from "@/components/DesignRequestDetail";
+import DesignReqDetail from "@/container/designReq/DesignReqDetail";
 import Login from "@/components/user/Login";
 
 const router = createBrowserRouter([
@@ -29,13 +29,13 @@ const router = createBrowserRouter([
     children: [
       {
         path: ROUTES_DESIGN_REQUEST_DETAILS,
-        element: <DesignRequestDetail />,
+        element: <DesignReqDetail />,
       },
     ],
   },
   {
     path: ROUTES_DESIGN_REQUEST_REGISTRATION,
-    element: <DesignRequestRegistration />,
+    element: <DesignReqRegist />,
   },
 ]);
 
