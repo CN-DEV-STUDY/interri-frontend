@@ -2,6 +2,7 @@ import styled from "styled-components";
 import LoginForm from "./LoginForm";
 import { Link } from "react-router-dom";
 import SocialLogin from "./SocialLogin";
+import { ROUTES_SIGN_UP } from "@/routes/routes";
 
 interface ContentProps {
   size?: number;
@@ -19,7 +20,7 @@ function Login() {
         <LoginForm />
         <SubContentWrap>
           <NavLink to={""}>비밀번호 재설정</NavLink>
-          <NavLink to={""}>회원가입</NavLink>
+          <NavLink to={ROUTES_SIGN_UP}>회원가입</NavLink>
         </SubContentWrap>
         <Content size={14} color={"#808080"}>
           sns 계정으로 간편 로그인 / 회원가입

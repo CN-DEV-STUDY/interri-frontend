@@ -32,6 +32,7 @@ const SocialItem = styled.div<SocialItemProps>`
   border-radius: 50%;
   background-image: url(${(props) => props.url});
   background-size: cover;
+  margin-bottom: 30px;
 
   &:hover {
     cursor: pointer;

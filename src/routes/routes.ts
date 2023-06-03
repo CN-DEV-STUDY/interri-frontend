@@ -11,4 +11,8 @@ export const ROUTES_DESIGN_REQUEST_DETAILS = "/design/request/details";
 export const ROUTES_DESIGN_REQUEST_REGISTRATION =
   "/design/request/registration";
 
+// 로그인
 export const ROUTES_LOGIN = "/login";
+
+// 회원가입
+export const ROUTES_SIGN_UP = "/signUP";
