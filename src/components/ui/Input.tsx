@@ -13,6 +13,7 @@ interface InputProps {
   autoComplete?: string;
   multiply?: boolean;
   display?: string;
+  width?: number;
 }
 
 /**
@@ -30,6 +31,7 @@ const Input = ({
   autoComplete = "off",
   multiply,
   display,
+  width,
 }: InputProps) => {
   // view
   return (
@@ -45,6 +47,7 @@ const Input = ({
       autoComplete={autoComplete}
       display={display}
       multiple={multiply}
+      width={width}
     />
   );
 };
@@ -53,7 +56,7 @@ export default Input;
 
 // STYLED COMPONENT
 const StyledInput = styled.input<InputProps>`
-  width: 300px;
+  width: ${(props) => (props.width ? props.width : 300)}px;
   height: 50px;
   border-radius: 9px;
   border: 1px solid #96a6cc;
