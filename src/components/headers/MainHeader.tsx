@@ -7,11 +7,18 @@ import Header from "@/components/headers/Header";
 import ButtonLink from "@/components/ui/ButtonLink";
 import UserProfile from "../navbar/UserProfile";
 import UserMenu from "../navbar/UserMenu";
+import { useState } from "react";
 
 /**
  * @description 메인 헤더 컴포넌트
  */
 const MainHeader = () => {
+  const [click, setClick] = useState<boolean>(false);
+  const onClickUserMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+    console.log("click!!!!!!!");
+    console.log("click  >>> ", click);
+    setClick((prevState) => !prevState);
+  };
   // view
   return (
     <Header>
@@ -19,8 +26,9 @@ const MainHeader = () => {
       <Menu />
       <Wrapper>
         <ButtonLink to={ROUTES_DESIGN_REQUEST_REGISTRATION}>글 쓰기</ButtonLink>
-        <UserProfile />
-        <UserMenu />
+        <UserProfile onClick={onClickUserMenu} />
+
+        {click && <UserMenu />}
       </Wrapper>
     </Header>
   );
