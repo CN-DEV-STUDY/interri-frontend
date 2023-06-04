@@ -8,6 +8,7 @@ import ButtonLink from "@/components/ui/ButtonLink";
 import UserProfile from "../navbar/UserProfile";
 import UserMenu from "../navbar/UserMenu";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 /**
  * @description 메인 헤더 컴포넌트
@@ -22,7 +23,9 @@ const MainHeader = () => {
   // view
   return (
     <Header>
-      <Logo />
+      <NavLink to={"/"}>
+        <Logo />
+      </NavLink>
       <Menu />
       <Wrapper>
         <ButtonLink to={ROUTES_DESIGN_REQUEST_REGISTRATION}>글 쓰기</ButtonLink>
@@ -43,4 +46,8 @@ const Wrapper = styled.div`
   gap: 5px;
 
   position: relative;
+`;
+
+const NavLink = styled(Link)`
+  text-decoration: none;
 `;
