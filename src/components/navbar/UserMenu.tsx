@@ -1,5 +1,5 @@
 import userState from '@/global/user/userState'
-import { ROUTES_LOGIN } from '@/routes/routes'
+import { ROUTES_LOGIN, ROUTES_SIGN_UP } from '@/routes/routes'
 import { Link } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
 import styled from 'styled-components'
@@ -7,11 +7,11 @@ import styled from 'styled-components'
 type LinkProps = {
 	onClick?: () => void
 }
-
 /**
  * @description 유저 메뉴 컴포넌트
  */
 const UserMenu = () => {
+	// state
 	const setUserState = useSetRecoilState(userState)
 
 	const onLogout = () => {
@@ -26,7 +26,7 @@ const UserMenu = () => {
 			<ProfileLink to={'#'}>알림</ProfileLink>
 			<ProfileLink to={'#'}>메세지</ProfileLink>
 			<ProfileLink to={'#'}>마이페이지</ProfileLink>
-			<ProfileLink to={'#'}>회원가입</ProfileLink>
+			<ProfileLink to={ROUTES_SIGN_UP}>회원가입</ProfileLink>
 			<ProfileLink to={'#'} onClick={onLogout}>
 				로그아웃
 			</ProfileLink>
