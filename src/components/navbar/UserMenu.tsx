@@ -1,4 +1,4 @@
-import { ROUTES_LOGIN } from "@/routes/routes";
+import { ROUTES_LOGIN, ROUTES_SIGN_UP } from "@/routes/routes";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -13,7 +13,7 @@ const UserMenu = () => {
       <ProfileLink to={"#"}>알림</ProfileLink>
       <ProfileLink to={"#"}>메세지</ProfileLink>
       <ProfileLink to={"#"}>마이페이지</ProfileLink>
-      <ProfileLink to={"#"}>회원가입</ProfileLink>
+      <ProfileLink to={ROUTES_SIGN_UP}>회원가입</ProfileLink>
       <ProfileLink to={"#"}>로그아웃</ProfileLink>
     </Wrap>
   );
