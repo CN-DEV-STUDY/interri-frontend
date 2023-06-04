@@ -1,61 +1,61 @@
-import React, { useState, useEffect, useRef } from 'react';
-import Input from '@/components/ui/Input';
-import styled from 'styled-components';
-import Textarea from '@/components/ui/Textarea';
-import { Image } from 'react-bootstrap';
-import { getRegistrationResource } from '@/api/designReq';
-import designRequestState from '@/global/designRequest/designRequestState';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import designRequest from '@/global/designRequest/designRequestType';
-import designRequestInfo from '@/global/designRequest/designRequetInfoType';
-import ConfirmPopup from './common/popup/ConfirmPopup';
+import React, { useState, useEffect, useRef } from 'react'
+import Input from '@/components/ui/Input'
+import styled from 'styled-components'
+import Textarea from '@/components/ui/Textarea'
+import { Image } from 'react-bootstrap'
+import { getRegistrationResource } from '@/api/designReq'
+import designRequestState from '@/global/designRequest/designRequestState'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import designRequest from '@/global/designRequest/designRequestType'
+import designRequestInfo from '@/global/designRequest/designRequetInfoType'
+import ConfirmPopup from './common/popup/ConfirmPopup'
 
 interface Data {
-	sizeList: SizeList[];
-	housingTypeList: HousingTypeList[];
-	colorList: string[];
-	roomTypeList: RoomTypeList[];
-	styleList: StyleList[];
+	sizeList: SizeList[]
+	housingTypeList: HousingTypeList[]
+	colorList: string[]
+	roomTypeList: RoomTypeList[]
+	styleList: StyleList[]
 }
 
 // 평수
 type SizeList = {
-	id: number;
-	name: string;
-};
+	id: number
+	name: string
+}
 
 // 주거 형태
 type HousingTypeList = {
-	id: number;
-	name: string;
-};
+	id: number
+	name: string
+}
 
 // 공간
 type RoomTypeList = {
-	id: number;
-	name: string;
-};
+	id: number
+	name: string
+}
 
 // 스타일
 type StyleList = {
-	id: number;
-	name: string;
-};
+	id: number
+	name: string
+}
 
 type DesignRequestForm = {
-	styleId: number;
-	housingTypeId: number;
-	sizeId: number;
-	mainColor: string;
-	subColor: string;
-	maxPrice: number;
-	dueDate: Date;
-	tempYn: string;
-};
+	styleId: number
+	housingTypeId: number
+	sizeId: number
+	mainColor: string
+	subColor: string
+	maxPrice: number
+	dueDate: Date
+	tempYn: string
+}
 
 type FlexProps = {
-	gap?: number;
-};
+	gap?: number
+}
 
 const DesignReqRegistBody = () => {
 	// state
@@ -65,146 +65,148 @@ const DesignReqRegistBody = () => {
 		colorList: [],
 		roomTypeList: [],
 		styleList: [],
-	});
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const [error, setError] = useState<Error | null>();
-	const inputFileRef = useRef<HTMLInputElement>(null);
-	const [file, setFile] = useState<File>();
-	const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
+	})
+	const [isLoading, setIsLoading] = useState<boolean>(false)
+	const [error, setError] = useState<Error | null>()
+	const inputFileRef = useRef<HTMLInputElement>(null)
+	const [file, setFile] = useState<File>()
+	const [imagePreviewUrl, setImagePreviewUrl] = useState<any>()
 
-	const setDesignRequest = useSetRecoilState(designRequestState);
-	const [designRequestInfo, setDesignRequestInfo] = useState<designRequestInfo[]>([
+	const setDesignRequest = useSetRecoilState(designRequestState)
+	const [designRequestInfo, setDesignRequestInfo] = useState<
+		designRequestInfo[]
+	>([
 		{
 			images: [],
 			roomTypeId: 0,
 			content: '',
 		},
-	]);
+	])
 
 	useEffect(() => {
 		setDesignRequest((prevState: designRequest) => {
-			const newDesignRequest = { ...prevState };
+			const newDesignRequest = { ...prevState }
 			// TODO: 알맞은 인덱스 구현하는 로직 필요
-			newDesignRequest.designRequestInfos = designRequestInfo;
-			return newDesignRequest;
-		});
-	}, [designRequestInfo]);
+			newDesignRequest.designRequestInfos = designRequestInfo
+			return newDesignRequest
+		})
+	}, [designRequestInfo])
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				setError(null);
+				setError(null)
 				// setData(dataObj);
-				setIsLoading(true);
+				setIsLoading(true)
 
-				const data = await getRegistrationResource();
-				setData(data);
+				const data = await getRegistrationResource()
+				setData(data)
 			} catch (error) {
-				error instanceof Error && setError(error);
+				error instanceof Error && setError(error)
 			} finally {
-				setIsLoading(false);
+				setIsLoading(false)
 			}
-		};
+		}
 
-		fetchData();
-	}, []);
+		fetchData()
+	}, [])
 
 	// event
 	const onInputButtonClick = () => {
-		inputFileRef.current?.click();
-	};
+		inputFileRef.current?.click()
+	}
 
 	const onSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setDesignRequest((prevState: designRequest) => {
-			return { ...prevState, sizeId: parseInt(event.target.value) };
-		});
-	};
+			return { ...prevState, sizeId: parseInt(event.target.value) }
+		})
+	}
 
 	const onHousingTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setDesignRequest((prevState: designRequest) => {
 			return {
 				...prevState,
 				housingTypeId: parseInt(event.target.value),
-			};
-		});
-	};
+			}
+		})
+	}
 
 	const onMainColorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setDesignRequest((prevState: designRequest) => {
-			return { ...prevState, mainColor: event.target.value };
-		});
-	};
+			return { ...prevState, mainColor: event.target.value }
+		})
+	}
 
 	const onSubColorChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setDesignRequest((prevState: designRequest) => {
-			return { ...prevState, subColor: event.target.value };
-		});
-	};
+			return { ...prevState, subColor: event.target.value }
+		})
+	}
 
 	const onMaxPriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setDesignRequest((prevState: designRequest) => {
-			return { ...prevState, maxPrice: parseInt(event.target.value) };
-		});
-	};
+			return { ...prevState, maxPrice: parseInt(event.target.value) }
+		})
+	}
 
 	const onDuedateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setDesignRequest((prevState: designRequest) => {
-			return { ...prevState, dueDate: new Date(event.target.value) };
-		});
-	};
+			return { ...prevState, dueDate: new Date(event.target.value) }
+		})
+	}
 
 	const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		// @see https://www.tutsmake.com/react-thumbnail-image-preview-before-upload-tutorial/
-		const reader = new FileReader();
-		const files = Array.from(event.target.files!);
+		const reader = new FileReader()
+		const files = Array.from(event.target.files!)
 
 		reader.onloadend = () => {
 			files.map((file) => {
-				setFile(file);
-			});
-			setImagePreviewUrl(reader.result);
-		};
-		files.forEach((file) => reader.readAsDataURL(file));
+				setFile(file)
+			})
+			setImagePreviewUrl(reader.result)
+		}
+		files.forEach((file) => reader.readAsDataURL(file))
 
 		setDesignRequestInfo((prevState: designRequestInfo[]) => {
-			const newDesignRequestInfo = [...prevState];
+			const newDesignRequestInfo = [...prevState]
 
 			// TODO: 알맞은 인덱스 구현하는 로직 필요
 			newDesignRequestInfo[0] = {
 				...newDesignRequestInfo[0],
 				images: Array.from(event.target.files!),
-			};
+			}
 
-			return newDesignRequestInfo;
-		});
-	};
+			return newDesignRequestInfo
+		})
+	}
 
 	const onRoomTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setDesignRequestInfo((prevState: designRequestInfo[]) => {
-			const newDesignRequestInfo = [...prevState];
+			const newDesignRequestInfo = [...prevState]
 
 			// 특정 인덱스에 새로운 designRequestInfo 객체를 할당
 			newDesignRequestInfo[0] = {
 				...newDesignRequestInfo[0], // 이전 객체의 속성 복사
 				roomTypeId: parseInt(event.target.value), // roomTypeId 속성 업데이트
-			};
-			return newDesignRequestInfo;
-		});
-	};
+			}
+			return newDesignRequestInfo
+		})
+	}
 
 	const onContentChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setDesignRequestInfo((prevState: designRequestInfo[]) => {
-			const newDesignRequestInfo = [...prevState];
+			const newDesignRequestInfo = [...prevState]
 
 			// 특정 인덱스에 새로운 designRequestInfo 객체를 할당
 			newDesignRequestInfo[0] = {
 				...newDesignRequestInfo[0],
 				content: event.target.value,
-			};
+			}
 
-			return newDesignRequestInfo;
-		});
-	};
+			return newDesignRequestInfo
+		})
+	}
 	return (
 		<>
 			<Section>
@@ -265,7 +267,12 @@ const DesignReqRegistBody = () => {
 					)}
 					{!imagePreviewUrl && (
 						<ImageBox onClick={onInputButtonClick}>
-							<Input type={'file'} display={'none'} inputRef={inputFileRef} onChange={onImageChange} />
+							<Input
+								type={'file'}
+								display={'none'}
+								ref={inputFileRef}
+								onChange={onImageChange}
+							/>
 							<ImageContainer>
 								<Svg
 									xmlns='http://www.w3.org/2000/svg'
@@ -299,16 +306,19 @@ const DesignReqRegistBody = () => {
 								</option>
 							))}
 						</Select>
-						<Textarea placeholder={'사진에 대해서 설명해주세요.'} onChange={onContentChange} />
+						<Textarea
+							placeholder={'사진에 대해서 설명해주세요.'}
+							onChange={onContentChange}
+						/>
 					</FlexColumn>
 				</Flex>
 				<AddButton>사진 추가</AddButton>
 			</Section>
 		</>
-	);
-};
+	)
+}
 
-export default DesignReqRegistBody;
+export default DesignReqRegistBody
 
 // styles
 
@@ -320,7 +330,7 @@ const Section = styled.section`
 	> button {
 		float: right;
 	}
-`;
+`
 
 const Flex = styled.div<FlexProps>`
 	display: flex;
@@ -347,7 +357,7 @@ const Flex = styled.div<FlexProps>`
 			color: #96a6cc;
 		}
 	}
-`;
+`
 
 const FlexColumn = styled.div`
 	display: flex;
@@ -362,7 +372,7 @@ const FlexColumn = styled.div`
 		width: 500px;
 		height: 100%;
 	}
-`;
+`
 
 const Select = styled.select`
 	min-width: 25.65rem;
@@ -386,11 +396,11 @@ const Select = styled.select`
 	option {
 		text-align: center;
 	}
-`;
+`
 
 const Label = styled.label`
 	font-size: 2.4rem;
-`;
+`
 
 const StyledInput = styled.input`
 	min-width: 24rem;
@@ -399,7 +409,7 @@ const StyledInput = styled.input`
 	border: 1px solid #000;
 	text-align: center;
 	font-size: 2rem;
-`;
+`
 
 const Grid = styled.div`
 	display: grid;
@@ -408,7 +418,7 @@ const Grid = styled.div`
 	column-gap: 1rem;
 	width: 110rem;
 	margin-bottom: 4rem;
-`;
+`
 
 const ImageBox = styled.button`
 	position: relative;
@@ -436,7 +446,7 @@ const ImageBox = styled.button`
 		object-fit: cover;
 		object-position: center;
 	}
-`;
+`
 
 const ImageContainer = styled.div`
 	display: flex;
@@ -448,12 +458,12 @@ const ImageContainer = styled.div`
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-`;
+`
 
 const Svg = styled.svg`
 	width: 58px;
 	height: 58px;
-`;
+`
 
 const Button = styled.button`
 	border: none;
@@ -464,7 +474,7 @@ const Button = styled.button`
 	font-weight: 500;
 	padding: 10px 12px;
 	cursor: pointer;
-`;
+`
 
 const AddButton = styled.button`
 	border: none;
@@ -475,4 +485,4 @@ const AddButton = styled.button`
 	font-weight: 500;
 	padding: 16px 48px;
 	cursor: pointer;
-`;
+`
