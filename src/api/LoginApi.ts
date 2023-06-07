@@ -1,11 +1,8 @@
-import { LoginFormType } from '@/components/user/type'
-import axios from 'axios'
+import { LoginFormType } from "@/components/user/type";
+import axios from "@/utils/api";
 
 export const postLoginRequest = async (loginForm: LoginFormType) => {
-	const { data } = await axios.post(
-		process.env.REACT_APP_BASE_URL + '/login',
-		loginForm
-	)
+  const { data } = await axios.post("/login", loginForm);
 
-	return data.data
-}
+  return data.data;
+};
