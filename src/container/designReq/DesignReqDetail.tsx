@@ -8,6 +8,11 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import DesignReqInfoContent from '@/components/design/designReq/DesignReqInfoContent';
 import DesignReqResList from '@/components/design/designReq/DesignReqResList';
+import {
+    QueryClient,
+    QueryClientProvider,
+    useQuery,
+} from '@tanstack/react-query';
 
 interface DesignReqDetail {
     id: number; // 요청 id
@@ -47,42 +52,27 @@ interface ReqDetailResResources {
 function DesignRequestDetail() {
     //location
     const location = useLocation();
+    const designReqId =
+        location.state === null ? 1 : location.state.designReqId; // TODO 추후 지울 것
 
-    //global
+    // react-query
+    const { isLoading, error, data } = useQuery<DesignReqDetail>({
+        queryKey: ['getDesignReqDetail'],
+        queryFn: () => getDesignReqDetail(designReqId),
+    });
 
-    //state
-    const [detail, setDetail] = useState<DesignReqDetail>();
+    if (isLoading) return 'Loading...';
+    if (error) return 'An error has occurred: ' + (error as Error)?.message;
 
-    //watch
-    useEffect(() => {
-        const designReqId =
-            location.state === null ? 1 : location.state.designReqId; // TODO 추후 지울 것
-
-        getDesiginReqDetail(designReqId);
-    }, []);
-
-    //method
-    const getDesiginReqDetail = async (degisnReqId: number) => {
-        const data = await getDesignReqDetail(degisnReqId);
-        setDetail(data);
-    };
-
-    console.log('detail : ', detail);
-    if (detail && detail.reqDetailResResources) {
-        console.log(
-            'detail.res length : ',
-            detail.reqDetailResResources.length,
-        );
-    }
     return (
         <Wrap>
             <ContentWrap>
                 <DesignReqDetailCount
-                    viewCnt={detail?.viewCnt}
-                    scrabCnt={detail?.scrabCnt}
+                    viewCnt={data?.viewCnt}
+                    scrabCnt={data?.scrabCnt}
                     commentCnt={
-                        detail && detail.reqDetailResResources
-                            ? detail.reqDetailResResources.length
+                        data && data.reqDetailResResources
+                            ? data.reqDetailResResources.length
                             : 0
                     }
                 />
@@ -93,12 +83,12 @@ function DesignRequestDetail() {
                 <DesignReqDetailSubInfo />
             </ContentWrap>
             <DesignReqContent
-                sizeNm={detail?.sizeNm}
-                mainColor={detail?.mainColor}
-                subColor={detail?.subColor}
-                housingType={detail?.housingTypeNm}
-                dueDate={detail?.dueDate}
-                maxPrice={detail?.maxPrice}
+                sizeNm={data?.sizeNm}
+                mainColor={data?.mainColor}
+                subColor={data?.subColor}
+                housingType={data?.housingTypeNm}
+                dueDate={data?.dueDate}
+                maxPrice={data?.maxPrice}
             />
             <DesignReqInfoContent />
             <DesignReqInfoContent />
