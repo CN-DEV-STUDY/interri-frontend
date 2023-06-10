@@ -1,16 +1,19 @@
-import styled from "styled-components";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import Input from "../ui/Input";
-import { LoginFormType } from "./type";
-import { useMutation } from "@tanstack/react-query";
-import { postLoginRequest } from "@/api/LoginApi";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
-import { useSetRecoilState } from "recoil";
-import userState from "@/global/user/userState";
+import styled from 'styled-components';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import Input from '../ui/Input';
+import { LoginFormType } from './type';
+import { useMutation } from '@tanstack/react-query';
+import { postLoginRequest } from '@/api/LoginApi';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { useSetRecoilState } from 'recoil';
+import userState from '@/global/user/userState';
 
 function LoginForm() {
     // cookie
+    const rememberId = Cookies.get('userId');
+
+    console.log('rememberId : ', rememberId);
 
     //global
     const setUserState = useSetRecoilState(userState);
@@ -23,7 +26,7 @@ function LoginForm() {
     } = useForm<LoginFormType>();
 
     const onSubmit: SubmitHandler<LoginFormType> = (data) => {
-        console.log("onSubmit:", data);
+        console.log('onSubmit:', data);
         loginMutation.mutate(data);
     };
 
@@ -32,16 +35,17 @@ function LoginForm() {
 
     // react-query
     const loginMutation = useMutation(postLoginRequest, {
-        onMutate: (varialble) => {
-            console.log("onMutate", varialble);
-        },
+        onMutate: (varialble) => {},
         onSuccess: (data, variables, context) => {
-            console.log("success", data, variables, context);
-            Cookies.set("accessToken", data.accessToken, { expires: 7 });
-            Cookies.set("refreshToken", data.refreshToken, { expires: 7 });
+            if (rememberId === undefined || null) {
+                Cookies.set('userId', variables.email, { expires: 7 });
+            }
+
+            Cookies.set('accessToken', data.accessToken, { expires: 7 });
+            Cookies.set('refreshToken', data.refreshToken, { expires: 7 });
             setUserState({ isLoggedIn: true });
 
-            navigate("/");
+            navigate('/');
         },
     });
 
@@ -49,27 +53,28 @@ function LoginForm() {
     return (
         <Form onSubmit={handleSubmit(onSubmit)}>
             <Controller
-                name="email"
+                name='email'
                 control={control}
                 rules={{ required: true }}
-                defaultValue=""
+                defaultValue={rememberId}
                 render={({ field }) => (
                     <Input
                         {...field}
-                        placeholder="이메일"
+                        placeholder='이메일'
                         hasError={errors.email ? true : false}
                     />
                 )}
             />
             <Controller
-                name="password"
+                name='password'
                 control={control}
                 rules={{ required: true }}
-                defaultValue=""
+                defaultValue=''
                 render={({ field }) => (
                     <Input
                         {...field}
-                        placeholder="비밀번호"
+                        type='password'
+                        placeholder='비밀번호'
                         hasError={errors.password ? true : false}
                     />
                 )}
