@@ -1,70 +1,70 @@
-import SecondaryHeading from "@/components/ui/SecondaryHeading";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import DesignCardList from "../common/card/DesignCardList";
-import DesignCard from "../common/card/DesignCard";
-import { ROUTES_DESIGN_REQUEST_DETAILS } from "@/routes/routes";
+import SecondaryHeading from '@/components/ui/SecondaryHeading';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import DesignCardList from '../common/card/DesignCardList';
+import DesignCard from '../common/card/DesignCard';
+import { ROUTES_DESIGN_REQUEST_DETAILS } from '@/routes/routes';
+import { InteriorTrendsSectionType } from '../pages/index/types';
+import React from 'react';
+
+type Props = {
+    interiorTrendsSection: InteriorTrendsSectionType[];
+};
 
 /**
  * @description 트렌드 섹션 컴포넌트
  */
-const TrendSection = () => {
+const TrendSection = ({ interiorTrendsSection: trends }: Props) => {
+    console.log('trends', trends);
+
     // view
     return (
         <Section>
             <Flex>
                 <SecondaryHeading>인테리어 트렌드</SecondaryHeading>
-                <MoreLink to="">
+                <MoreLink to=''>
                     <span>더보기</span>
                     <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
+                        xmlns='http://www.w3.org/2000/svg'
+                        fill='none'
+                        viewBox='0 0 24 24'
                         strokeWidth={1.5}
-                        stroke="currentColor"
+                        stroke='currentColor'
                     >
                         <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            d='M8.25 4.5l7.5 7.5-7.5 7.5'
                         />
                     </svg>
                 </MoreLink>
             </Flex>
-            <CustomLink to={""}>모던</CustomLink>
-            <DesignCardList>
-                <Link
-                    to={ROUTES_DESIGN_REQUEST_DETAILS}
-                    state={{ designReqId: 1 }}
-                >
-                    <DesignCard userId={"sumon"} viewCount={23} />
-                </Link>
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-            </DesignCardList>
-            <CustomLink to={""}>클래식</CustomLink>
-            <DesignCardList>
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-                <DesignCard userId={"sumon"} viewCount={23} />
-            </DesignCardList>
+            {trends.map((trend) => (
+                <React.Fragment key={trend.styleId}>
+                    <CustomLink to={''}>{trend.styleName}</CustomLink>
+                    <DesignCardList>
+                        {trend.styleInfos.map((styleInfo) => (
+                            <Link
+                                key={styleInfo.designReqId}
+                                to={ROUTES_DESIGN_REQUEST_DETAILS}
+                                state={{ designReqId: styleInfo.designReqId }}
+                            >
+                                <DesignCard
+                                    userId={styleInfo.nickname}
+                                    viewCount={styleInfo.viewCnt}
+                                />
+                            </Link>
+                        ))}
+                    </DesignCardList>
+                </React.Fragment>
+            ))}
         </Section>
     );
 };
 
 export default TrendSection;
 
-// STYLED COMPONENTS
+// style
 const Section = styled.div`
     position: relative;
     margin: 0 48px 10rem 48px;
