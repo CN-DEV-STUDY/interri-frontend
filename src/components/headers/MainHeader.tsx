@@ -16,8 +16,6 @@ import { Link } from "react-router-dom";
 const MainHeader = () => {
   const [click, setClick] = useState<boolean>(false);
   const onClickUserMenu = (e: React.MouseEvent<HTMLDivElement>) => {
-    console.log("click!!!!!!!");
-    console.log("click  >>> ", click);
     setClick((prevState) => !prevState);
   };
   // view

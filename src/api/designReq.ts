@@ -1,26 +1,19 @@
-import axios from "axios";
+import axios from "@/utils/api";
 
 const getRegistrationResource = async () => {
-    const { data } = await axios.get(
-        process.env.REACT_APP_BASE_URL + "/design/req"
-    );
+  const { data } = await axios.get("/design/req");
 
-    return data.data;
+  return data.data;
 };
 
 const postDesignReqRegist = async (designRequest: any) => {
-    const { data } = await axios.post(
-        process.env.REACT_APP_BASE_URL + "/design/req",
-        designRequest
-    );
+  const { data } = await axios.post("/design/req", designRequest);
 };
 
 const getDesignReqDetail = async (id: number) => {
-    const { data } = await axios.get(
-        process.env.REACT_APP_BASE_URL + `/design/req/${id}/details`
-    );
+  const { data } = await axios.get(`/design/req/${id}/details`);
 
-    return data.data;
+  return data.data;
 };
 
 export { getRegistrationResource, postDesignReqRegist, getDesignReqDetail };
