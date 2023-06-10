@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil'
 import userState from '@/global/user/userState'
 
 type CircleProps = {
-	loggedIn?: boolean
+	isLoggedIn?: boolean
 }
 
 /**
@@ -15,16 +15,17 @@ interface Props {
 }
 
 function UserProfile({ onClick }: Props) {
-	const loggedIn = useRecoilValue(userState)
-	console.log('loggedIn:', loggedIn)
+	const { isLoggedIn } = useRecoilValue(userState)
+
+	console.log('isLoggedIn:', isLoggedIn)
 
 	// view
 	return (
 		<>
-			{loggedIn ? (
-				<Circle onClick={onClick} loggedIn={true} />
+			{isLoggedIn ? (
+				<Circle onClick={onClick} isLoggedIn={true} />
 			) : (
-				<Circle onClick={onClick} loggedIn={false} />
+				<Circle onClick={onClick} isLoggedIn={false} />
 			)}
 		</>
 	)
@@ -36,6 +37,6 @@ export default UserProfile
 const Circle = styled.div<CircleProps>`
 	width: 40px;
 	height: 40px;
-	background-color: ${(props) => (props.loggedIn ? 'blue' : 'red')};
+	background-color: ${(props) => (props.isLoggedIn ? 'blue' : 'red')};
 	border-radius: 50%;
 `

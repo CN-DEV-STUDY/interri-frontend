@@ -4,8 +4,9 @@ import { RouterProvider } from 'react-router-dom'
 import router from '@/routes/router'
 import GlobalStyles from '@/GlobalStyes'
 import { CookiesProvider } from 'react-cookie'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 const queryClient = new QueryClient()

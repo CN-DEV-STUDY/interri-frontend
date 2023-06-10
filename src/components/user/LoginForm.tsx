@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Input from "../ui/Input";
 import { LoginFormType } from "./type";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { postLoginRequest } from "@/api/LoginApi";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";

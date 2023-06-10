@@ -1,4 +1,3 @@
-import { Jwt, LoginFormType } from '@/components/user/type'
 import { atom } from 'recoil'
 
 const userState = atom({
