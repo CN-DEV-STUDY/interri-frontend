@@ -31,9 +31,9 @@ interface DesignReqDetail {
 
 interface ReqInfoDetailResources {
     infoId: number; // 개별 요청 내용 id
-    roomType: string; // 공간
+    roomTypeNm: string; // 공간
     content: string; // 요청 내용
-    imgPath: string[]; // 이미지 경로
+    imgPathList: string[]; // 이미지 경로
 }
 
 interface ReqDetailResResources {
@@ -61,6 +61,8 @@ function DesignRequestDetail() {
         queryFn: () => getDesignReqDetail(designReqId),
     });
 
+    console.log('data : >>> ', data);
+
     if (isLoading) return 'Loading...';
     if (error) return 'An error has occurred: ' + (error as Error)?.message;
 
@@ -79,7 +81,7 @@ function DesignRequestDetail() {
                 <Button>제안하기</Button>
             </ContentWrap>
             <ContentWrap>
-                <DesignReqDetailUser />
+                <DesignReqDetailUser userId={data?.userId} />
                 <DesignReqDetailSubInfo />
             </ContentWrap>
             <DesignReqContent
@@ -90,9 +92,12 @@ function DesignRequestDetail() {
                 dueDate={data?.dueDate}
                 maxPrice={data?.maxPrice}
             />
-            <DesignReqInfoContent />
-            <DesignReqInfoContent />
-            <DesignReqResList />
+
+            {data?.reqInfoDetailResources.map((info) => (
+                <DesignReqInfoContent key={info.infoId} info={info} />
+            ))}
+
+            <DesignReqResList res={data?.reqDetailResResources} />
         </Wrap>
     );
 }
