@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
     ${reset}
@@ -19,6 +19,20 @@ const GlobalStyles = createGlobalStyle`
         font-family: sans-serif;
         line-height: 1;
         min-width: 144rem;
+    }
+    /* Add this CSS to your application */
+    .ReactQueryDevtools {
+        code {
+            color: white !important;
+        }
+        
+        button {
+            color: white !important;   
+        }
+
+        button > * {
+            color: white !important;
+        }
     }
 `;
 
