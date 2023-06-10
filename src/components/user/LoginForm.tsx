@@ -2,12 +2,13 @@ import styled from 'styled-components'
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import Input from '../ui/Input'
 import { LoginFormType } from './type'
-import { useMutation } from 'react-query'
+
 import { postLoginRequest } from '@/api/LoginApi'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useSetRecoilState } from 'recoil'
 import userState from '@/global/user/userState'
+import { useMutation } from '@tanstack/react-query'
 
 function LoginForm() {
 	// cookie
