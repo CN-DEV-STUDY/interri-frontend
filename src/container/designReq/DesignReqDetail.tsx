@@ -58,7 +58,8 @@ function DesignRequestDetail() {
     // react-query
     const { isLoading, error, data } = useQuery<DesignReqDetail>({
         queryKey: ['getDesignReqDetail'],
-        queryFn: () => getDesignReqDetail(designReqId),
+        queryFn: () => getDesignReqDetail(1),
+        // queryFn: () => getDesignReqDetail(designReqId),
     });
 
     console.log('data : >>> ', data);
