@@ -20,7 +20,8 @@ const GlobalStyles = createGlobalStyle`
         line-height: 1;
         min-width: 144rem;
     }
-    /* Add this CSS to your application */
+    
+    /* React Query Devtools 커스텀 스타일 */
     .ReactQueryDevtools {
         code {
             color: white !important;
@@ -33,6 +34,14 @@ const GlobalStyles = createGlobalStyle`
         button > * {
             color: white !important;
         }
+    }
+
+    /* SwiperJs */
+    :root {
+        /* 화살표 사이즈 */
+        --swiper-navigation-size: 30px;
+        /* 화살표 색상 */
+        --swiper-navigation-color: #fff;
     }
 `;
 
