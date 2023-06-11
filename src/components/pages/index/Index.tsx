@@ -5,6 +5,7 @@ import TrendSection from '@/components/section/TrendSection';
 import { getIndexRequest } from '@/api/index';
 import { useQuery } from '@tanstack/react-query';
 import { DataType } from './types';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 /**
  * @description index 페이지 컴포넌트
@@ -16,10 +17,20 @@ const Index = () => {
         queryFn: () => getIndexRequest(),
     });
 
-    console.log('INDEX', data);
-
     // loading
-    if (isLoading) return <>${'Loading'}</>;
+    if (isLoading)
+        return (
+            <Backdrop
+                sx={{
+                    color: '#fff',
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={true}
+                invisible={true}
+            >
+                <CircularProgress />
+            </Backdrop>
+        );
 
     // error
     if (error) return <>${'ERROR'}</>;
