@@ -2,18 +2,20 @@ import styled from 'styled-components';
 import Section from '@/components/common/Section';
 import Image from '@/components/ui/Image';
 import { useState } from 'react';
-import { DotsProps, HeroType } from '../pages/index/types';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper';
+import { HeroType } from '../pages/index/types';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { FreeMode, Navigation, Pagination, Autoplay } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
+import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
 
 type Props = {
     heroSection: HeroType;
 };
+
+SwiperCore.use([Navigation, Pagination, Autoplay]);
 
 /**
  * @description HeroSection 컴포넌트
@@ -30,13 +32,11 @@ const HeroSection = ({ heroSection }: Props) => {
         <Section width={'large'} color={'#1D2133'}>
             <Flex>
                 <Swiper
-                    modules={[Navigation, Pagination]}
+                    modules={[FreeMode, Pagination, Navigation]}
                     spaceBetween={100}
                     slidesPerView={1}
                     navigation
-                    pagination={{ clickable: true }}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
+                    autoplay={{ delay: 10000 }}
                 >
                     <SwiperSlide>
                         <HeroTextBox>
@@ -133,7 +133,7 @@ const Flex = styled.div`
     margin: 5rem 0;
 
     .swiper {
-        padding: 0 100px;
+        padding: 30px 100px;
     }
 
     .swiper-slide {
@@ -143,7 +143,6 @@ const Flex = styled.div`
     }
 
     .swiper-button-prev {
-        /* background-color: red; */
         color: #fff;
     }
 `;
