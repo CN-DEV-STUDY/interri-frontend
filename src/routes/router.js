@@ -13,6 +13,7 @@ import Home from '@/components/Home';
 import DesignReqDetail from '@/container/designReq/DesignReqDetail';
 import Login from '@/components/user/Login';
 import SignUp from '@/components/user/SignUp';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 const router = createBrowserRouter([
     {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
     {
         path: ROUTES_ROOT_HOME,
         element: <Home />,
+
         children: [
             {
                 path: ROUTES_DESIGN_REQUEST_DETAILS,
@@ -37,7 +39,11 @@ const router = createBrowserRouter([
     },
     {
         path: ROUTES_DESIGN_REQUEST_REGISTRATION,
-        element: <DesignReqRegist />,
+        element: (
+            <ProtectedRoute>
+                <DesignReqRegist />
+            </ProtectedRoute>
+        ),
     },
     {
         path: ROUTES_SIGN_UP,

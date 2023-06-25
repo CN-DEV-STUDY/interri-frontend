@@ -142,7 +142,7 @@ const DesignReqRegistBody = () => {
                     <Button key={style.id}>{style.name}</Button>
                 ))}
             </Grid>
-            <Flex gap={40}>
+            <Descriptions>
                 {imagePreviewUrl && (
                     <ImageBox>
                         <Image src={imagePreviewUrl} />
@@ -177,7 +177,7 @@ const DesignReqRegistBody = () => {
                         onChange={onContentChange}
                     />
                 </FlexColumn>
-            </Flex>
+            </Descriptions>
             <AddButton>사진 추가</AddButton>
         </Container>
     );
@@ -220,6 +220,11 @@ const Flex = styled.div<FlexProps>`
             color: #96a6cc;
         }
     }
+`;
+
+const Descriptions = styled.div`
+    display: flex;
+    gap: 40px;
 `;
 
 const FlexColumn = styled.div`
@@ -267,7 +272,7 @@ const Grid = styled.div`
     row-gap: 1rem;
     column-gap: 1rem;
     width: 110rem;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
 `;
 
 const ImageBox = styled.button`

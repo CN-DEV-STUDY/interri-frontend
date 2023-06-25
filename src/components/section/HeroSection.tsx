@@ -22,7 +22,8 @@ SwiperCore.use([Navigation, Pagination, Autoplay]);
  */
 const HeroSection = ({ heroSection }: Props) => {
     // read only
-    const { numberOfDesigners } = heroSection;
+    // const { numberOfDesigners } = heroSection;
+    const numberOfDesigners = 1;
 
     // state
     // TODO: 세터에 0~5사이의 값 인지 체크하는 로직 필요
@@ -57,16 +58,15 @@ const HeroSection = ({ heroSection }: Props) => {
                     </SwiperSlide>
                     <SwiperSlide>
                         <HeroTextBox>
-                            <h2>지금 당신의 공간을 디자인 하세요</h2>
+                            <h2>인기 디자인을 확인하세요</h2>
                             <p>
-                                인테리는 <strong>3</strong>
-                                명의 디자이너와 함께하고 있습니다
+                                <strong>채수현</strong> 디자이너
                             </p>
                         </HeroTextBox>
                         <Image
                             path={
                                 process.env.PUBLIC_URL +
-                                '/images/hero-image.jpg'
+                                '/images/design-req1.jpg'
                             }
                             height={50}
                             width={35}
@@ -74,7 +74,7 @@ const HeroSection = ({ heroSection }: Props) => {
                     </SwiperSlide>
                     <SwiperSlide>
                         <HeroTextBox>
-                            <h3>지금 당신의 공간을 디자인 하세요</h3>
+                            <h2>지금 당신의 공간을 디자인 하세요</h2>
                             <p>
                                 인테리는 <strong>4</strong>
                                 명의 디자이너와 함께하고 있습니다
@@ -101,7 +101,8 @@ export default HeroSection;
 const HeroTextBox = styled.div`
     color: #fff;
 
-    h1 {
+    h1,
+    h2 {
         font-size: 4.4rem;
         line-height: 5.2rem;
         font-weight: 700;
