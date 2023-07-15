@@ -14,7 +14,7 @@ import DueDate from './DueDate';
 import CameraIcon from '@/components/icons/CameraIcon';
 
 type DesignRequestForm = {
-    styleId: number;
+    styleId: string;
     housingTypeId: number;
     sizeId: number;
     mainColor: string;
@@ -28,12 +28,17 @@ type FlexProps = {
     gap?: number;
 };
 
+type ButtonProps = {
+    selected: Boolean
+}
+
 const DesignReqRegistBody = () => {
+    const setDesignRequest = useSetRecoilState(designRequestState);
+
+    const [selectedList, setSelectedList] = useState<String[]>([]);
     const inputFileRef = useRef<HTMLInputElement>(null);
     const [file, setFile] = useState<File>();
     const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
-
-    const setDesignRequest = useSetRecoilState(designRequestState);
     const [designRequestInfo, setDesignRequestInfo] = useState<
         DesignRequestInfo[]
     >([
@@ -129,6 +134,17 @@ const DesignReqRegistBody = () => {
         });
     };
 
+    const onStyleBtnClick = (event: React.MouseEvent<HTMLButtonElement>, id: string) => {
+        event.preventDefault();
+
+        if (!selectedList.includes(id)) {
+            setSelectedList((prevState) => [...prevState, id])
+        } else {
+            setSelectedList(selectedList.filter((value) => value !== id))
+        }
+        
+    }
+
     // view
     return (
         <Container>
@@ -139,7 +155,13 @@ const DesignReqRegistBody = () => {
             </Flex>
             <Grid>
                 {data?.styleList.map((style) => (
-                    <Button key={style.id}>{style.name}</Button>
+                    <Button 
+                        selected={selectedList.includes(style.id) ? true : false}  
+                        onClick={(event) => {onStyleBtnClick(event, style.id)}} 
+                        key={style.id}
+                    >
+                        {style.name}
+                    </Button>
                 ))}
             </Grid>
             <Descriptions>
@@ -315,10 +337,10 @@ const ImageContainer = styled.div`
     transform: translate(-50%, -50%);
 `;
 
-const Button = styled.button`
+const Button = styled.button<ButtonProps>`
     border: none;
     border-radius: 9px;
-    background-color: #cbd3e6;
+    background-color:${props => (props.selected ? '#87a1df' : '#cbd3e6')};
     color: #fff;
     font-size: 18px;
     font-weight: 500;

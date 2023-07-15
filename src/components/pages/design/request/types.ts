@@ -26,7 +26,7 @@ type RoomTypeList = {
 
 // 스타일
 type StyleList = {
-    id: number;
+    id: string;
     name: string;
 };
 
@@ -38,7 +38,7 @@ export type DesignRequest = {
     subColor: string;
     maxPrice: number;
     dueDate: Date;
-    styleId: number;
+    styleId: number[];
     designRequestInfos: DesignRequestInfo[];
 };
 
