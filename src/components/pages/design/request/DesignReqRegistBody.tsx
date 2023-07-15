@@ -35,7 +35,7 @@ type ButtonProps = {
 const DesignReqRegistBody = () => {
     const setDesignRequest = useSetRecoilState(designRequestState);
 
-    const [selectedList, setSelectedList] = useState<String[]>([]);
+    const [selectedList, setSelectedList] = useState<string[]>([]);
     const inputFileRef = useRef<HTMLInputElement>(null);
     const [file, setFile] = useState<File>();
     const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
@@ -142,6 +142,12 @@ const DesignReqRegistBody = () => {
         } else {
             setSelectedList(selectedList.filter((value) => value !== id))
         }
+
+        setDesignRequest((prevState: DesignRequest) => {
+            const newDesignRequest = { ...prevState };
+            newDesignRequest.styleId = selectedList;
+            return newDesignRequest;
+        });
         
     }
 

@@ -8,19 +8,19 @@ export interface SelectListType {
 
 // 평수
 type SizeList = {
-    id: number;
+    id: string;
     name: string;
 };
 
 // 주거 형태
 type HousingTypeList = {
-    id: number;
+    id: string;
     name: string;
 };
 
 // 공간
 type RoomTypeList = {
-    id: number;
+    id: string;
     name: string;
 };
 
@@ -31,14 +31,15 @@ type StyleList = {
 };
 
 export type DesignRequest = {
-    userId: number;
-    sizeId: number;
-    housingTypeId: number;
+    userId: string;
+    sizeId: string;
+    housingTypeId: string;
     mainColor: string;
     subColor: string;
     maxPrice: number;
     dueDate: Date;
-    styleId: number[];
+    styleId: string[];
+    tempYn: string;
     designRequestInfos: DesignRequestInfo[];
 };
 
