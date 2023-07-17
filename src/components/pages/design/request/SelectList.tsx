@@ -1,6 +1,5 @@
 import Select from '@/components/ui/Select';
-import { DesignRequest, DesignRequestInfo, SelectListType } from './types';
-import { ChangeEvent } from 'react';
+import { DesignRequest, SelectListType } from './types';
 import styled from 'styled-components';
 
 type Props = {
@@ -14,26 +13,18 @@ type Props = {
 const SelectList = ({
     setDesignRequest,
     data,
-}: // sizeList,
-// housingTypeList,
-// colorList,
-// roomTypeList,
-// styleList,
+}: 
+
 Props) => {
     const onSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setDesignRequest((prevState: DesignRequest) => {
-            return { ...prevState, sizeId: parseInt(event.target.value) };
+            return { ...prevState, sizeId: event.target.value };
         });
     };
 
-    const onHousingTypeChange = (
-        event: React.ChangeEvent<HTMLSelectElement>,
-    ) => {
-        setDesignRequest((prevState: DesignRequest) => {
-            return {
-                ...prevState,
-                housingTypeId: parseInt(event.target.value),
-            };
+    const onHousingTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setDesignRequest((prevState: DesignRequest) => {            
+            return { ...prevState, housingTypeId: event.target.value };
         });
     };
 

@@ -8,42 +8,42 @@ export interface SelectListType {
 
 // 평수
 type SizeList = {
-    id: number;
+    id: string;
     name: string;
 };
 
 // 주거 형태
 type HousingTypeList = {
-    id: number;
+    id: string;
     name: string;
 };
 
 // 공간
 type RoomTypeList = {
-    id: number;
+    id: string;
     name: string;
 };
 
 // 스타일
 type StyleList = {
-    id: number;
+    id: string;
     name: string;
 };
 
 export type DesignRequest = {
-    userId: number;
-    sizeId: number;
-    housingTypeId: number;
+    sizeId: string;
+    housingTypeId: string;
     mainColor: string;
     subColor: string;
     maxPrice: number;
     dueDate: Date;
-    styleId: number;
+    styleId: string[];
+    tempYn: string;
     designRequestInfos: DesignRequestInfo[];
 };
 
 export type DesignRequestInfo = {
-    images: File[];
-    roomTypeId: number;
+    image: File;
+    roomTypeId: string;
     content: string;
 };

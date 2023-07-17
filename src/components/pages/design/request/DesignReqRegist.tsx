@@ -24,6 +24,8 @@ const DesignReqRegist = () => {
     };
 
     const submitDesignReq = async () => {
+        console.log(designRequest);
+        
         const data = await postDesignReqRegist(designRequest);
     };
 

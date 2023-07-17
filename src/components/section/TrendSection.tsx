@@ -39,7 +39,7 @@ const TrendSection = ({ interiorTrendsSection: trends }: Props) => {
                     </svg>
                 </MoreLink>
             </Flex>
-            {/* {trends.map((trend) => (
+            {trends.map((trend) => (
                 <React.Fragment key={trend.styleId}>
                     <CustomLink to={''}>{trend.styleName}</CustomLink>
                     <DesignCardList>
@@ -57,7 +57,7 @@ const TrendSection = ({ interiorTrendsSection: trends }: Props) => {
                         ))}
                     </DesignCardList>
                 </React.Fragment>
-            ))} */}
+            ))}
         </Section>
     );
 };

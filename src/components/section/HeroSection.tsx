@@ -22,8 +22,7 @@ SwiperCore.use([Navigation, Pagination, Autoplay]);
  */
 const HeroSection = ({ heroSection }: Props) => {
     // read only
-    // const { numberOfDesigners } = heroSection;
-    const numberOfDesigners = 1;
+    const { numberOfDesigners } = heroSection;
 
     // state
     // TODO: 세터에 0~5사이의 값 인지 체크하는 로직 필요
