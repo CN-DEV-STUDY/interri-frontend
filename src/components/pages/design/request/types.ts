@@ -31,7 +31,6 @@ type StyleList = {
 };
 
 export type DesignRequest = {
-    userId: string;
     sizeId: string;
     housingTypeId: string;
     mainColor: string;
@@ -44,7 +43,7 @@ export type DesignRequest = {
 };
 
 export type DesignRequestInfo = {
-    images: File[];
-    roomTypeId: number;
+    image: File;
+    roomTypeId: string;
     content: string;
 };

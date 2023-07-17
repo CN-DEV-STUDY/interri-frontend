@@ -43,8 +43,8 @@ const DesignReqRegistBody = () => {
         DesignRequestInfo[]
     >([
         {
-            images: [],
-            roomTypeId: 0,
+            image: {} as File,
+            roomTypeId: '',
             content: '',
         },
     ]);
@@ -100,7 +100,7 @@ const DesignReqRegistBody = () => {
             // TODO: 알맞은 인덱스 구현하는 로직 필요
             newDesignRequestInfo[0] = {
                 ...newDesignRequestInfo[0],
-                images: Array.from(event.target.files!),
+                image: event.target.files![0],
             };
 
             return newDesignRequestInfo;
@@ -114,7 +114,7 @@ const DesignReqRegistBody = () => {
             // 특정 인덱스에 새로운 designRequestInfo 객체를 할당
             newDesignRequestInfo[0] = {
                 ...newDesignRequestInfo[0], // 이전 객체의 속성 복사
-                roomTypeId: parseInt(event.target.value), // roomTypeId 속성 업데이트
+                roomTypeId: event.target.value, // roomTypeId 속성 업데이트
             };
             return newDesignRequestInfo;
         });

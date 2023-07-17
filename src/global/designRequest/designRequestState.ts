@@ -4,7 +4,6 @@ import { DesignRequest } from '@/components/pages/design/request/types';
 const designRequestState = atom<DesignRequest>({
     key: 'designRequestState',
     default: {
-        userId: '',
         sizeId: '',
         housingTypeId: '',
         mainColor: '',
@@ -13,7 +12,7 @@ const designRequestState = atom<DesignRequest>({
         dueDate: new Date(),
         styleId: [],
         tempYn: 'N',
-        designRequestInfos: [{ images: [], roomTypeId: 0, content: '' }],
+        designRequestInfos: [{ image: {} as File, roomTypeId: '', content: '' }],
     },
     // default: {} as DesignRequest,
 });
