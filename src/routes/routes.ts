@@ -15,4 +15,4 @@ export const ROUTES_DESIGN_REQUEST_REGISTRATION =
 export const ROUTES_LOGIN = "/login";
 
 // 회원가입
-export const ROUTES_SIGN_UP = "/signUP";
+export const ROUTES_SIGN_UP = "/signUp";

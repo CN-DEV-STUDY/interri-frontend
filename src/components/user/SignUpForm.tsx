@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 import Input from '../ui/Input';
+import {
+    useState,
+    ChangeEvent,
+    MouseEventHandler,
+    useEffect,
+    useRef,
+} from 'react';
+import { getEmailCertStatus, postCertEmail } from '@/api/desginReply';
 
 interface ContentProps {
     size?: number;
@@ -14,7 +22,84 @@ interface WrapProps {
     sort?: string;
 }
 
+interface UserSignUpRequest {
+    email: string;
+    nickname: string;
+    password: string;
+}
+
 function SignUpForm() {
+    // global
+
+    // state
+    const [userSignUpRequest, setUserSignUpRequest] =
+        useState<UserSignUpRequest>({
+            email: '',
+            nickname: '',
+            password: '',
+        });
+    const [selectedEmail, setSelectedEmail] = useState<string>('');
+    const [isEmailVerified, setIsEmailVerified] = useState<boolean | null>(
+        null,
+    );
+
+    // event
+    const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+        setUserSignUpRequest((prevState) => ({
+            ...prevState,
+            email: e.target.value.concat(selectedEmail),
+        }));
+    };
+
+    const onChangeSelectBox = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedEmail(e.target.value);
+        setUserSignUpRequest((prevState) => ({
+            ...prevState,
+            email: prevState.email.split('@')[0].concat(e.target.value),
+        }));
+    };
+
+    const onClickCertEmail = async () => {
+        if (userSignUpRequest.email !== '' && selectedEmail !== '') {
+            await postCertEmail(userSignUpRequest.email);
+            setIsEmailVerified(false);
+        }
+    };
+
+    const onClickSignUP = () => {
+        console.log('회원가입 정보:', userSignUpRequest);
+    };
+
+    // ref
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+    // watch
+    useEffect(() => {
+        if (isEmailVerified === false) {
+            const fetchEmailCertStatus = async () => {
+                const emailCertStatus = await getEmailCertStatus(
+                    userSignUpRequest.email,
+                );
+                if (emailCertStatus === true) {
+                    // 이메일이 인증된 상태면
+                    setIsEmailVerified(true); // true를 담아준다.
+                    clearInterval(intervalRef.current!); // interval을 해제하여 더 이상 호출하지 않음
+                }
+            };
+
+            // 5초마다 주기적으로 호출
+            console.log('이메일 인증 상태 체크!!');
+            intervalRef.current = setInterval(fetchEmailCertStatus, 5000);
+
+            // 컴포넌트가 unmount될 때 interval 해제
+            return () => clearInterval(intervalRef.current!);
+        }
+    }, [isEmailVerified]);
+
+    console.log('userRequestDto : ', userSignUpRequest);
+    console.log('email_full : ', userSignUpRequest.email);
+    console.log('email : ', userSignUpRequest.email.split('@')[0]);
+
     return (
         <>
             <Title size={24} mt={30}>
@@ -23,14 +108,26 @@ function SignUpForm() {
 
             <ContentWrap>
                 <EmailWrap>
-                    <Input width={130} placeholder={'이메일'} />
+                    <Input
+                        type='text'
+                        value={userSignUpRequest.email.split('@')[0]}
+                        onChange={onChangeEmail}
+                        width={130}
+                        placeholder={'이메일'}
+                    />
                     <p>@</p>
-                    <Select>
+                    <Select value={selectedEmail} onChange={onChangeSelectBox}>
                         <option value=''>선택하세요</option>
+                        <option value='@naver.com'>naver.com</option>
+                        <option value='@gmail.com'>gmail.com</option>
                     </Select>
                 </EmailWrap>
             </ContentWrap>
-            <Button>이메일 인증하기</Button>
+            {isEmailVerified ? (
+                <Button disabled={true}>이메일 인증완료</Button>
+            ) : (
+                <Button onClick={onClickCertEmail}>이메일 인증하기</Button>
+            )}
 
             <Title size={24}>비밀번호</Title>
             <SubTitle>영문, 숫자를 포함한 8자 이상 입력해주세요.</SubTitle>
@@ -50,7 +147,7 @@ function SignUpForm() {
             </ContentWrap>
 
             <ContentWrap>
-                <Button>회원가입</Button>
+                <Button onClick={onClickSignUP}>회원가입</Button>
             </ContentWrap>
         </>
     );
