@@ -1,13 +1,8 @@
 import styled from 'styled-components';
 import Input from '../ui/Input';
-import {
-    useState,
-    ChangeEvent,
-    MouseEventHandler,
-    useEffect,
-    useRef,
-} from 'react';
-import { getEmailCertStatus, postCertEmail } from '@/api/desginReply';
+import toast, { ToastOptions, Toaster } from 'react-hot-toast';
+import { useState, ChangeEvent } from 'react';
+import { postCertEmail } from '@/api/desginReply';
 
 interface ContentProps {
     size?: number;
@@ -27,7 +22,16 @@ interface UserSignUpRequest {
     nickname: string;
     password: string;
 }
-
+const toastConfig: ToastOptions = {
+    duration: 4000,
+    position: 'top-center',
+    style: {
+        fontSize: '15px',
+        padding: '10px',
+        // 기타 스타일 옵션 추가 가능
+    },
+    icon: '❌',
+};
 function SignUpForm() {
     // global
 
@@ -39,9 +43,9 @@ function SignUpForm() {
             password: '',
         });
     const [selectedEmail, setSelectedEmail] = useState<string>('');
-    const [isEmailVerified, setIsEmailVerified] = useState<boolean | null>(
-        null,
-    );
+    const [password, setPassword] = useState<string>('');
+    const [checkedPassword, setCheckedPassword] = useState<string>('');
+    const [nickName, setNickName] = useState<string>('');
 
     // event
     const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,45 +64,40 @@ function SignUpForm() {
     };
 
     const onClickCertEmail = async () => {
-        if (userSignUpRequest.email !== '' && selectedEmail !== '') {
-            await postCertEmail(userSignUpRequest.email);
-            setIsEmailVerified(false);
+        if (userSignUpRequest.email && selectedEmail) {
+            try {
+                await postCertEmail(userSignUpRequest.email);
+                toast.success('Successfully sent to email', {
+                    ...toastConfig,
+                    icon: '✅',
+                });
+            } catch (error) {
+                toast.error('Failed to send email', {
+                    ...toastConfig,
+                });
+            }
+        } else {
+            toast.error('Please write the email', {
+                ...toastConfig,
+            });
+        }
+    };
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const name = e.target.name;
+
+        if (name === 'password') {
+            setPassword(e.target.value);
+        } else if (name === 'nickName') {
+            setNickName(e.target.value);
+        } else {
+            setCheckedPassword(e.target.value);
         }
     };
 
     const onClickSignUP = () => {
         console.log('회원가입 정보:', userSignUpRequest);
     };
-
-    // ref
-    const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-    // watch
-    useEffect(() => {
-        if (isEmailVerified === false) {
-            const fetchEmailCertStatus = async () => {
-                const emailCertStatus = await getEmailCertStatus(
-                    userSignUpRequest.email,
-                );
-                if (emailCertStatus === true) {
-                    // 이메일이 인증된 상태면
-                    setIsEmailVerified(true); // true를 담아준다.
-                    clearInterval(intervalRef.current!); // interval을 해제하여 더 이상 호출하지 않음
-                }
-            };
-
-            // 5초마다 주기적으로 호출
-            console.log('이메일 인증 상태 체크!!');
-            intervalRef.current = setInterval(fetchEmailCertStatus, 5000);
-
-            // 컴포넌트가 unmount될 때 interval 해제
-            return () => clearInterval(intervalRef.current!);
-        }
-    }, [isEmailVerified]);
-
-    console.log('userRequestDto : ', userSignUpRequest);
-    console.log('email_full : ', userSignUpRequest.email);
-    console.log('email : ', userSignUpRequest.email.split('@')[0]);
 
     return (
         <>
@@ -123,27 +122,40 @@ function SignUpForm() {
                     </Select>
                 </EmailWrap>
             </ContentWrap>
-            {isEmailVerified ? (
-                <Button disabled={true}>이메일 인증완료</Button>
-            ) : (
-                <Button onClick={onClickCertEmail}>이메일 인증하기</Button>
-            )}
+
+            <Button onClick={onClickCertEmail}>이메일 인증하기</Button>
+            <Toaster />
 
             <Title size={24}>비밀번호</Title>
             <SubTitle>영문, 숫자를 포함한 8자 이상 입력해주세요.</SubTitle>
             <ContentWrap>
-                <Input placeholder={'비밀번호'} />
+                <Input
+                    placeholder={'비밀번호'}
+                    name='password'
+                    value={password}
+                    onChange={onChange}
+                />
             </ContentWrap>
 
             <Title size={24}>비밀번호 확인</Title>
             <ContentWrap>
-                <Input placeholder={'비밀번호 확인'} />
+                <Input
+                    placeholder={'비밀번호 확인'}
+                    name='checkedPassword'
+                    value={checkedPassword}
+                    onChange={onChange}
+                />
             </ContentWrap>
 
             <Title size={24}>닉네임</Title>
             <SubTitle>다른 사용자와 겹치지 않도록 입력해주세요.</SubTitle>
             <ContentWrap>
-                <Input placeholder={'별명 (2~15자)'} />
+                <Input
+                    placeholder={'별명 (2~15자)'}
+                    name='nickName'
+                    value={nickName}
+                    onChange={onChange}
+                />
             </ContentWrap>
 
             <ContentWrap>
