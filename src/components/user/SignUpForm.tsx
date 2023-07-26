@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import Input from '../ui/Input';
 import toast, { ToastOptions, Toaster } from 'react-hot-toast';
 import { useState, ChangeEvent } from 'react';
-import { postCertEmail } from '@/api/desginReply';
+import { postCertEmail, postSignUp } from '@/api/user';
+import { useNavigate } from 'react-router-dom';
 
 interface ContentProps {
     size?: number;
@@ -43,9 +44,12 @@ function SignUpForm() {
             password: '',
         });
     const [selectedEmail, setSelectedEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    // const [password, setPassword] = useState<string>('');
     const [checkedPassword, setCheckedPassword] = useState<string>('');
-    const [nickName, setNickName] = useState<string>('');
+    // const [nickName, setNickName] = useState<string>('');
+
+    // location
+    const navigate = useNavigate();
 
     // event
     const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +69,11 @@ function SignUpForm() {
 
     const onClickCertEmail = async () => {
         if (userSignUpRequest.email && selectedEmail) {
+            toast.loading('Please wait ', {
+                ...toastConfig,
+                icon: '🕐',
+            });
+
             try {
                 await postCertEmail(userSignUpRequest.email);
                 toast.success('Successfully sent to email', {
@@ -87,16 +96,46 @@ function SignUpForm() {
         const name = e.target.name;
 
         if (name === 'password') {
-            setPassword(e.target.value);
+            setUserSignUpRequest((prevState) => ({
+                ...prevState,
+                password: e.target.value,
+            }));
         } else if (name === 'nickName') {
-            setNickName(e.target.value);
+            setUserSignUpRequest((prevState) => ({
+                ...prevState,
+                nickname: e.target.value,
+            }));
         } else {
             setCheckedPassword(e.target.value);
         }
     };
 
-    const onClickSignUP = () => {
-        console.log('회원가입 정보:', userSignUpRequest);
+    const onClickSignUP = async () => {
+        if (userSignUpRequest.password === '' || checkedPassword === '') {
+            toast.error('Please write the password ', {
+                ...toastConfig,
+            });
+            return;
+        }
+
+        if (userSignUpRequest.password !== checkedPassword) {
+            toast.error('password dose not match ', {
+                ...toastConfig,
+            });
+            return;
+        }
+
+        if (userSignUpRequest.nickname === '') {
+            toast.error('Please write the nickname ', {
+                ...toastConfig,
+            });
+            return;
+        }
+
+        // api 호출
+        await postSignUp(userSignUpRequest);
+        console.log('request : ', userSignUpRequest);
+        navigate('/login');
     };
 
     return (
@@ -132,7 +171,7 @@ function SignUpForm() {
                 <Input
                     placeholder={'비밀번호'}
                     name='password'
-                    value={password}
+                    value={userSignUpRequest.password}
                     onChange={onChange}
                 />
             </ContentWrap>
@@ -153,7 +192,7 @@ function SignUpForm() {
                 <Input
                     placeholder={'별명 (2~15자)'}
                     name='nickName'
-                    value={nickName}
+                    value={userSignUpRequest.nickname}
                     onChange={onChange}
                 />
             </ContentWrap>
