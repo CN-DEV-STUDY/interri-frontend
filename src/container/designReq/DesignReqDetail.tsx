@@ -13,38 +13,7 @@ import {
     QueryClientProvider,
     useQuery,
 } from '@tanstack/react-query';
-
-interface DesignReqDetail {
-    id: number; // 요청 id
-    userId: string; // 요청 등록자
-    sizeNm: string; // 평수
-    housingTypeNm: string; // 주거 형태
-    mainColor: string; // 메인 컬러
-    subColor: string; // 서브 컬러
-    maxPrice: number; // 최대 가격
-    dueDate: string; // 만기일
-    viewCnt: number;
-    scrabCnt: number;
-    reqInfoDetailResources: ReqInfoDetailResources[]; // 디자인 요청 정보
-    reqDetailResResources: ReqDetailResResources[]; // 디자인 요청에 대한 응답
-}
-
-interface ReqInfoDetailResources {
-    infoId: number; // 개별 요청 내용 id
-    roomTypeNm: string; // 공간
-    content: string; // 요청 내용
-    imgPathList: string[]; // 이미지 경로
-}
-
-interface ReqDetailResResources {
-    id: number; // 응답 id
-    nickname: string; // 응답 등록자 닉네임
-    profileImgPath: string; // 프로필 이미지 경로
-    profileImgNm: string; // 프로필 이미지 파일 이름
-    adoptionCnt: number; // 채택수
-    price: number; // 제시 가격
-    repImgPath: string; // 대표 응답 이미지 경로
-}
+import { DesignReqDetail } from './type';
 
 /**
  * @description 디자인 요청 상세 컴포넌트
@@ -53,12 +22,14 @@ function DesignRequestDetail() {
     //location
     const location = useLocation();
     const designReqId =
-        location.state === null ? 1 : location.state.designReqId; // TODO 추후 지울 것
+        location.state === null ? 15 : location.state.designReqId; // TODO 추후 지울 것
 
     // react-query
     const { isLoading, error, data } = useQuery<DesignReqDetail>({
         queryKey: ['getDesignReqDetail'],
-        queryFn: () => getDesignReqDetail(1),
+        queryFn: () => getDesignReqDetail(15),
+        refetchOnWindowFocus: false,
+
         // queryFn: () => getDesignReqDetail(designReqId),
     });
 
@@ -86,6 +57,7 @@ function DesignRequestDetail() {
                 <DesignReqDetailSubInfo />
             </ContentWrap>
             <DesignReqContent
+                styleNm={data?.styleNm}
                 sizeNm={data?.sizeNm}
                 mainColor={data?.mainColor}
                 subColor={data?.subColor}
