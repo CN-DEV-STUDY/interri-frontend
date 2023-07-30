@@ -12,6 +12,7 @@ interface ColorProps {
 }
 
 interface detailProps {
+    styleNm?: string; // 스타일
     sizeNm?: string; // 평수
     housingType?: string; // 주거 형태
     mainColor?: string; // 메인 컬러
@@ -24,6 +25,7 @@ interface detailProps {
  * @description 디자인 요청 상세 > 평수, 주거형태, 스타일, 메인컬러, 서브컬러 컴포넌트
  */
 function DesignReqInfoContent({
+    styleNm,
     sizeNm,
     housingType,
     mainColor,
@@ -97,7 +99,7 @@ function DesignReqInfoContent({
                         </svg>
                     </Svg>
                     <Content size={36}>스타일</Content>
-                    <Content size={24}>모던</Content>
+                    <Content size={24}>{styleNm}</Content>
                 </SvgColContentWrap>
                 <SvgColContentWrap>
                     <Color bgColor={mainColor}></Color>
