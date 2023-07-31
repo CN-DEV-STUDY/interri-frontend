@@ -27,6 +27,7 @@ export interface ReqDetailResResources {
     profileImgPath: string; // 프로필 이미지 경로
     profileImgNm: string; // 프로필 이미지 파일 이름
     adoptionCnt: number; // 채택수
+    viewCnt: number; // 조회수
     price: number; // 제시 가격
     repImgPath: string; // 대표 응답 이미지 경로
 }
